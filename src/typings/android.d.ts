@@ -1,38 +1,32 @@
+/// <reference path="android-declarations.d.ts"/>
+
 declare module com {
 	export module couchbase {
 		export module lite {
 			export abstract class AbstractDatabase {
 				public static class: java.lang.Class<com.couchbase.lite.AbstractDatabase>;
-				public static TAG: string;
-				public static DB_EXTENSION: string;
-				public static MAX_CHANGES: number;
-				public static DEFAULT_DATABASE_FLAGS: number;
-				public name: string;
-				public config: com.couchbase.lite.DatabaseConfiguration;
-				public c4db: com.couchbase.litecore.C4Database;
-				public postExecutor: java.util.concurrent.ScheduledExecutorService;
-				public queryExecutor: java.util.concurrent.ScheduledExecutorService;
-				public dbChangeNotifier: com.couchbase.lite.ChangeNotifier<com.couchbase.lite.DatabaseChange>;
-				public c4DBObserver: com.couchbase.litecore.C4DatabaseObserver;
-				public docChangeNotifiers: java.util.Map<string,com.couchbase.lite.DocumentChangeNotifier>;
-				public sharedKeys: com.couchbase.litecore.SharedKeys;
-				public activeReplications: java.util.Set<com.couchbase.lite.Replicator>;
-				public activeLiveQueries: java.util.Set<com.couchbase.lite.LiveQuery>;
-				public lock: any;
+				public static log: com.couchbase.lite.Log;
+				public c4db: com.couchbase.lite.internal.core.C4Database;
+				public save(param0: com.couchbase.lite.MutableDocument, param1: com.couchbase.lite.ConflictHandler): boolean;
+				public mustBeOpen(): void;
 				public constructor(param0: string, param1: com.couchbase.lite.DatabaseConfiguration);
 				public addDocumentChangeListener(param0: string, param1: com.couchbase.lite.DocumentChangeListener): com.couchbase.lite.ListenerToken;
 				public finalize(): void;
 				public save(param0: com.couchbase.lite.MutableDocument, param1: com.couchbase.lite.ConcurrencyControl): boolean;
 				public static exists(param0: string, param1: java.io.File): boolean;
 				public compact(): void;
+				public static copy(param0: java.io.File, param1: string, param2: com.couchbase.lite.DatabaseConfiguration, param3: number, param4: native.Array<number>): void;
+				public constructor(param0: com.couchbase.lite.internal.core.C4Database);
 				public createIndex(param0: string, param1: com.couchbase.lite.Index): void;
+				/** @deprecated */
+				public static setLogLevel(param0: com.couchbase.lite.LogDomain, param1: com.couchbase.lite.LogLevel): void;
 				public inBatch(param0: java.lang.Runnable): void;
 				public delete(): void;
 				public save(param0: com.couchbase.lite.MutableDocument): void;
 				public delete(param0: com.couchbase.lite.Document): void;
+				public purge(param0: string): void;
 				public close(): void;
 				public removeChangeListener(param0: com.couchbase.lite.ListenerToken): void;
-				public static setLogLevel(param0: com.couchbase.lite.LogDomain, param1: com.couchbase.lite.LogLevel): void;
 				public getName(): string;
 				public getCount(): number;
 				public getDocument(param0: string): com.couchbase.lite.Document;
@@ -42,12 +36,80 @@ declare module com {
 				public addDocumentChangeListener(param0: string, param1: java.util.concurrent.Executor, param2: com.couchbase.lite.DocumentChangeListener): com.couchbase.lite.ListenerToken;
 				public getConfig(): com.couchbase.lite.DatabaseConfiguration;
 				public purge(param0: com.couchbase.lite.Document): void;
+				public getDocumentExpiration(param0: string): java.util.Date;
 				public getIndexes(): java.util.List<string>;
+				public setDocumentExpiration(param0: string, param1: java.util.Date): void;
 				public delete(param0: com.couchbase.lite.Document, param1: com.couchbase.lite.ConcurrencyControl): boolean;
 				public static delete(param0: string, param1: java.io.File): void;
 				public deleteIndex(param0: string): void;
-				public static copy(param0: java.io.File, param1: string, param2: com.couchbase.lite.DatabaseConfiguration): void;
 				public addChangeListener(param0: java.util.concurrent.Executor, param1: com.couchbase.lite.DatabaseChangeListener): com.couchbase.lite.ListenerToken;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export abstract class AbstractDatabaseConfiguration {
+				public static class: java.lang.Class<com.couchbase.lite.AbstractDatabaseConfiguration>;
+				public setDirectory(param0: string): com.couchbase.lite.AbstractDatabaseConfiguration;
+				public setReadonly(param0: boolean): void;
+				public getDatabaseConfiguration(): com.couchbase.lite.DatabaseConfiguration;
+				public constructor(param0: com.couchbase.lite.AbstractDatabaseConfiguration);
+				public isReadonly(): boolean;
+				public constructor();
+				public getDirectory(): string;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export abstract class AbstractFunction {
+				public static class: java.lang.Class<com.couchbase.lite.AbstractFunction>;
+				public static abs(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static contains(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static length(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static trunc(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static ln(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static trim(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static e(): com.couchbase.lite.Expression;
+				public static rtrim(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static sum(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static upper(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static stringToMillis(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static sign(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static tan(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static degrees(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static avg(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static round(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static min(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static max(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static atan2(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static cos(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static pi(): com.couchbase.lite.Expression;
+				public static ltrim(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static atan(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static acos(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static power(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static trunc(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static asin(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static sqrt(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static floor(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static radians(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static ceil(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static lower(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static millisToString(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static millisToUTC(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static exp(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static round(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static count(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static stringToUTC(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static log(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
+				public static sin(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
 			}
 		}
 	}
@@ -58,6 +120,28 @@ declare module com {
 		export module lite {
 			export abstract class AbstractIndex extends com.couchbase.lite.Index {
 				public static class: java.lang.Class<com.couchbase.lite.AbstractIndex>;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export abstract class AbstractIndexBuilder {
+				public static class: java.lang.Class<com.couchbase.lite.AbstractIndexBuilder>;
+				public static fullTextIndex(param0: native.Array<com.couchbase.lite.FullTextIndexItem>): com.couchbase.lite.FullTextIndex;
+				public static valueIndex(param0: native.Array<com.couchbase.lite.ValueIndexItem>): com.couchbase.lite.ValueIndex;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export abstract class AbstractNetworkReachabilityManager {
+				public static class: java.lang.Class<com.couchbase.lite.AbstractNetworkReachabilityManager>;
 			}
 		}
 	}
@@ -87,19 +171,19 @@ declare module com {
 		export module lite {
 			export abstract class AbstractReplicator extends com.couchbase.lite.NetworkReachabilityListener {
 				public static class: java.lang.Class<com.couchbase.lite.AbstractReplicator>;
-				public static TAG: string;
-				public config: com.couchbase.lite.ReplicatorConfiguration;
-				public stop(): void;
 				public getConfig(): com.couchbase.lite.ReplicatorConfiguration;
 				public removeChangeListener(param0: com.couchbase.lite.ListenerToken): void;
+				public constructor(param0: com.couchbase.lite.ReplicatorConfiguration);
+				public finalize(): void;
+				public toString(): string;
+				public addChangeListener(param0: java.util.concurrent.Executor, param1: com.couchbase.lite.ReplicatorChangeListener): com.couchbase.lite.ListenerToken;
+				public addDocumentReplicationListener(param0: com.couchbase.lite.DocumentReplicationListener): com.couchbase.lite.ListenerToken;
+				public stop(): void;
 				public start(): void;
 				public addChangeListener(param0: com.couchbase.lite.ReplicatorChangeListener): com.couchbase.lite.ListenerToken;
 				public getStatus(): com.couchbase.lite.AbstractReplicator.Status;
-				public constructor(param0: com.couchbase.lite.ReplicatorConfiguration);
-				public finalize(): void;
 				public resetCheckpoint(): void;
-				public toString(): string;
-				public addChangeListener(param0: java.util.concurrent.Executor, param1: com.couchbase.lite.ReplicatorChangeListener): com.couchbase.lite.ListenerToken;
+				public addDocumentReplicationListener(param0: java.util.concurrent.Executor, param1: com.couchbase.lite.DocumentReplicationListener): com.couchbase.lite.ListenerToken;
 			}
 			export module AbstractReplicator {
 				export class ActivityLevel {
@@ -118,13 +202,26 @@ declare module com {
 					public toString(): string;
 					public getCompleted(): number;
 				}
+				export class ReplicatorListener extends com.couchbase.lite.internal.core.C4ReplicatorListener {
+					public static class: java.lang.Class<com.couchbase.lite.AbstractReplicator.ReplicatorListener>;
+					public statusChanged(param0: com.couchbase.lite.internal.core.C4Replicator, param1: com.couchbase.lite.internal.core.C4ReplicatorStatus, param2: any): void;
+					public documentEnded(param0: com.couchbase.lite.internal.core.C4Replicator, param1: boolean, param2: native.Array<com.couchbase.lite.internal.core.C4DocumentEnded>, param3: any): void;
+				}
+				export class ReplicatorProgressLevel {
+					public static class: java.lang.Class<com.couchbase.lite.AbstractReplicator.ReplicatorProgressLevel>;
+					public static OVERALL: com.couchbase.lite.AbstractReplicator.ReplicatorProgressLevel;
+					public static PER_DOCUMENT: com.couchbase.lite.AbstractReplicator.ReplicatorProgressLevel;
+					public static PER_ATTACHMENT: com.couchbase.lite.AbstractReplicator.ReplicatorProgressLevel;
+					public static valueOf(param0: string): com.couchbase.lite.AbstractReplicator.ReplicatorProgressLevel;
+					public static values(): native.Array<com.couchbase.lite.AbstractReplicator.ReplicatorProgressLevel>;
+				}
 				export class Status {
 					public static class: java.lang.Class<com.couchbase.lite.AbstractReplicator.Status>;
 					public getActivityLevel(): com.couchbase.lite.AbstractReplicator.ActivityLevel;
 					public toString(): string;
 					public getProgress(): com.couchbase.lite.AbstractReplicator.Progress;
-					public constructor(param0: com.couchbase.litecore.C4ReplicatorStatus);
 					public getError(): com.couchbase.lite.CouchbaseLiteException;
+					public constructor(param0: com.couchbase.lite.internal.core.C4ReplicatorStatus);
 				}
 			}
 		}
@@ -134,13 +231,42 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class AndroidNetworkReachabilityManager extends com.couchbase.lite.NetworkReachabilityManager {
-				public static class: java.lang.Class<com.couchbase.lite.AndroidNetworkReachabilityManager>;
+			export abstract class AbstractReplicatorConfiguration {
+				public static class: java.lang.Class<com.couchbase.lite.AbstractReplicatorConfiguration>;
+				public readonly: boolean;
+				public target: com.couchbase.lite.Endpoint;
+				public setContinuous(param0: boolean): com.couchbase.lite.ReplicatorConfiguration;
+				public setPinnedServerCertificate(param0: native.Array<number>): com.couchbase.lite.ReplicatorConfiguration;
+				public setPushFilter(param0: com.couchbase.lite.ReplicationFilter): com.couchbase.lite.ReplicatorConfiguration;
+				public getConflictResolver(): com.couchbase.lite.ConflictResolver;
+				public setHeaders(param0: java.util.Map<string,string>): com.couchbase.lite.ReplicatorConfiguration;
+				public getPushFilter(): com.couchbase.lite.ReplicationFilter;
+				public getPullFilter(): com.couchbase.lite.ReplicationFilter;
+				public getPinnedServerCertificate(): native.Array<number>;
+				public setAuthenticator(param0: com.couchbase.lite.Authenticator): com.couchbase.lite.ReplicatorConfiguration;
+				public setReplicatorType(param0: com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType): com.couchbase.lite.ReplicatorConfiguration;
+				public getDatabase(): com.couchbase.lite.Database;
+				public isContinuous(): boolean;
+				public getChannels(): java.util.List<string>;
+				public getHeaders(): java.util.Map<string,string>;
+				public constructor(param0: com.couchbase.lite.Database, param1: com.couchbase.lite.Endpoint);
+				public setPullFilter(param0: com.couchbase.lite.ReplicationFilter): com.couchbase.lite.ReplicatorConfiguration;
+				public getDocumentIDs(): java.util.List<string>;
+				public setConflictResolver(param0: com.couchbase.lite.ConflictResolver): com.couchbase.lite.ReplicatorConfiguration;
+				public getAuthenticator(): com.couchbase.lite.Authenticator;
+				public setChannels(param0: java.util.List<string>): com.couchbase.lite.ReplicatorConfiguration;
+				public getReplicatorType(): com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType;
+				public setDocumentIDs(param0: java.util.List<string>): com.couchbase.lite.ReplicatorConfiguration;
+				public getTarget(): com.couchbase.lite.Endpoint;
 			}
-			export module AndroidNetworkReachabilityManager {
-				export class NetworkReceiver {
-					public static class: java.lang.Class<com.couchbase.lite.AndroidNetworkReachabilityManager.NetworkReceiver>;
-					public onReceive(param0: globalAndroid.content.Context, param1: globalAndroid.content.Intent): void;
+			export module AbstractReplicatorConfiguration {
+				export class ReplicatorType {
+					public static class: java.lang.Class<com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType>;
+					public static PUSH_AND_PULL: com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType;
+					public static PUSH: com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType;
+					public static PULL: com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType;
+					public static valueOf(param0: string): com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType;
+					public static values(): native.Array<com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType>;
 				}
 			}
 		}
@@ -152,7 +278,8 @@ declare module com {
 		export module lite {
 			export class Array extends java.lang.Object {
 				public static class: java.lang.Class<com.couchbase.lite.Array>;
-				public _sharedLock: any;
+				public lock: any;
+				public internalArray: com.couchbase.lite.internal.fleece.MArray;
 				public getDouble(param0: number): number;
 				public getString(param0: number): string;
 				public getDictionary(param0: number): com.couchbase.lite.DictionaryInterface;
@@ -170,9 +297,9 @@ declare module com {
 				public getValue(param0: number): any;
 				public count(): number;
 				public getInt(param0: number): number;
-				public encodeTo(param0: com.couchbase.litecore.fleece.FLEncoder): void;
 				public getArray(param0: number): com.couchbase.lite.ArrayInterface;
 				public getFloat(param0: number): number;
+				public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
 				public getArray(param0: number): com.couchbase.lite.Array;
 			}
 			export module Array {
@@ -321,7 +448,7 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class Blob extends com.couchbase.litecore.fleece.FLEncodable {
+			export class Blob extends com.couchbase.lite.internal.fleece.FLEncodable {
 				public static class: java.lang.Class<com.couchbase.lite.Blob>;
 				public getContentType(): string;
 				public digest(): string;
@@ -334,8 +461,8 @@ declare module com {
 				public hashCode(): number;
 				public equals(param0: any): boolean;
 				public constructor(param0: string, param1: native.Array<number>);
-				public encodeTo(param0: com.couchbase.litecore.fleece.FLEncoder): void;
 				public constructor(param0: string, param1: java.io.InputStream);
+				public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
 			}
 			export module Blob {
 				export class BlobInputStream {
@@ -362,8 +489,11 @@ declare module com {
 				public static FLAVOR: string;
 				public static VERSION_CODE: number;
 				public static VERSION_NAME: string;
-				public static BUILD_NO: number;
-				public static GitHash: string;
+				public static BUILD_COMMIT: string;
+				public static BUILD_HOST: string;
+				public static BUILD_NUMBER: string;
+				public static BUILD_TIME: string;
+				public static ENTERPRISE: boolean;
 				public constructor();
 			}
 		}
@@ -385,100 +515,82 @@ declare module com {
 		export module lite {
 			export class CBLError {
 				public static class: java.lang.Class<com.couchbase.lite.CBLError>;
-				/**
-				 * Constructs a new instance of the com.couchbase.lite.CBLError interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-				});
-				public constructor();
 			}
 			export module CBLError {
 				export class Code {
 					public static class: java.lang.Class<com.couchbase.lite.CBLError.Code>;
-					/**
-					 * Constructs a new instance of the com.couchbase.lite.CBLError$Code interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static CBLErrorTransactionNotClosed: number;
-					public static CBLErrorTLSCertUntrusted: number;
-					public static CBLErrorTLSCertExpired: number;
-					public static CBLErrorNotWriteable: number;
-					public static CBLErrorNotADatabaseFile: number;
-					public static CBLErrorWebSocketAbnormalClose: number;
-					public static CBLErrorInvalidParameter: number;
-					public static CBLErrorHTTPBase: number;
-					public static CBLErrorUnsupported: number;
-					public static CBLErrorWebSocketPolicyError: number;
-					public static CBLErrorConflict: number;
-					public static CBLErrorTLSClientCertRequired: number;
-					public static CBLErrorNotFound: number;
-					public static CBLErrorWrongFormat: number;
-					public static CBLErrorAssertionFailed: number;
-					public static CBLErrorWebSocketProtocolError: number;
-					public static CBLErrorUnimplemented: number;
-					public static CBLErrorInvalidRedirect: number;
-					public static CBLErrorWebSocketGoingAway: number;
-					public static CBLErrorNetworkBase: number;
-					public static CBLErrorUnexpectedError: number;
-					public static CBLErrorInvalidQuery: number;
-					public static CBLErrorTimeout: number;
-					public static CBLErrorTLSHandshakeFailed: number;
-					public static CBLErrorHTTPEntityTooLarge: number;
-					public static CBLErrorHTTPConflict: number;
-					public static CBLErrorDatabaseTooNew: number;
-					public static CBLErrorNotOpen: number;
-					public static CBLErrorWebSocketCloseUserPermanent: number;
-					public static CBLErrorCorruptRevisionData: number;
-					public static CBLErrorDatabaseTooOld: number;
-					public static CBLErrorTooManyRedirects: number;
-					public static CBLErrorHTTPProxyAuthRequired: number;
-					public static CBLErrorInvalidQueryParam: number;
-					public static CBLErrorCantOpenFile: number;
-					public static CBLErrorWebSocketBadMessageFormat: number;
-					public static CBLErrorCrypto: number;
-					public static CBLErrorBusy: number;
-					public static CBLErrorDNSFailure: number;
-					public static CBLErrorHTTPInternalServerError: number;
-					public static CBLErrorNotInTransaction: number;
-					public static CBLErrorHTTPImATeapot: number;
-					public static CBLErrorTLSCertUnknownRoot: number;
-					public static CBLErrorHTTPAuthRequired: number;
-					public static CBLErrorUnknownHost: number;
-					public static CBLErrorInvalidURL: number;
-					public static CBLErrorTLSClientCertRejected: number;
-					public static CBLErrorWebSocketDataError: number;
-					public static CBLErrorWebSocketMessageTooBig: number;
-					public static CBLErrorHTTPNotFound: number;
-					public static CBLErrorHTTPNotImplemented: number;
-					public static CBLErrorHTTPForbidden: number;
-					public static CBLErrorBadRevisionID: number;
-					public static CBLErrorMemoryError: number;
-					public static CBLErrorMissingIndex: number;
-					public static CBLErrorRemoteError: number;
-					public static CBLErrorBadDocID: number;
-					public static CBLErrorWebSocketBase: number;
-					public static CBLErrorWebSocketMissingExtension: number;
-					public static CBLErrorUnsupportedEncryption: number;
-					public static CBLErrorWebSocketCloseUserTransient: number;
-					public static CBLErrorCorruptData: number;
-					public static CBLErrorHTTPServiceUnavailable: number;
-					public static CBLErrorIOError: number;
-					public static CBLErrorWebSocketCantFulfill: number;
-					public static CBLErrorCantUpgradeDatabase: number;
+					public static ASSERTION_FAILED: number;
+					public static UNIMPLEMENTED: number;
+					public static UNSUPPORTED_ENCRYPTION: number;
+					public static BAD_REVISIONID: number;
+					public static CORRUPT_REVISION_DATA: number;
+					public static NOT_OPEN: number;
+					public static NOT_FOUND: number;
+					public static CONFLICT: number;
+					public static INVALID_PARAMETER: number;
+					public static UNEXPECTED_ERROR: number;
+					public static CANT_OPEN_FILE: number;
+					public static IO_ERROR: number;
+					public static MEMORY_ERROR: number;
+					public static NOT_WRITEABLE: number;
+					public static CORRUPT_DATA: number;
+					public static BUSY: number;
+					public static NOT_IN_TRANSACTION: number;
+					public static TRANSACTION_NOT_CLOSED: number;
+					public static UNSUPPORTED: number;
+					public static NOT_A_DATABSE_FILE: number;
+					public static WRONG_FORMAT: number;
+					public static CRYPTO: number;
+					public static INVALID_QUERY: number;
+					public static MISSING_INDEX: number;
+					public static INVALID_QUERY_PARAM: number;
+					public static REMOTE_ERROR: number;
+					public static DATABASE_TOO_OLD: number;
+					public static DATABASE_TOO_NEW: number;
+					public static BAD_DOC_ID: number;
+					public static CANT_UPGRADE_DATABASE: number;
+					public static NETWORK_BASE: number;
+					public static DNS_FAILURE: number;
+					public static UNKNOWN_HOST: number;
+					public static TIMEOUT: number;
+					public static INVALID_URL: number;
+					public static TOO_MANY_REDIRECTS: number;
+					public static TLS_HANDSHAKE_FAILED: number;
+					public static TLS_CERT_EXPIRED: number;
+					public static TLS_CERT_UNTRUSTED: number;
+					public static TLS_CLIENT_CERT_REQUIRED: number;
+					public static TLS_CLIENT_CERT_REJECTED: number;
+					public static TLS_CERT_UNKNOWN_ROOT: number;
+					public static INVALID_REDIRECT: number;
+					public static HTTP_BASE: number;
+					public static HTTP_AUTH_REQUIRED: number;
+					public static HTTP_FORBIDDEN: number;
+					public static HTTP_NOT_FOUND: number;
+					public static HTTP_CONFLICT: number;
+					public static HTTP_PROXY_AUTH_REQUIRED: number;
+					public static HTTP_ENTITY_TOO_LARGE: number;
+					public static HTTP_IM_A_TEAPOT: number;
+					public static HTTP_INTERNAL_SERVER_ERROR: number;
+					public static HTTP_NOT_IMPLEMENTED: number;
+					public static HTTP_SERVICE_UNAVAILABLE: number;
+					public static WEB_SOCKET_BASE: number;
+					public static WEB_SOCKET_GOING_AWAY: number;
+					public static WEB_SOCKET_PROTOCOL_ERROR: number;
+					public static WEB_SOCKET_DATA_ERROR: number;
+					public static WEB_SOCKET_ABNORMAL_CLOSE: number;
+					public static WEB_SOCKET_BAD_MESSAGE_FORMAT: number;
+					public static WEB_SOCKET_POLICY_ERROR: number;
+					public static WEB_SOCKET_MESSAGE_TOO_BIG: number;
+					public static WEB_SOCKET_MISSING_EXTENSION: number;
+					public static WEB_SOCKET_CANT_FULFILL: number;
+					public static WEB_SOCKET_CLOSE_USER_TRANSIENT: number;
+					public static WEB_SOCKET_CLOSE_USER_PERMANENT: number;
 				}
 				export class Domain {
 					public static class: java.lang.Class<com.couchbase.lite.CBLError.Domain>;
-					/**
-					 * Constructs a new instance of the com.couchbase.lite.CBLError$Domain interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static FleeceErrorDomain: string;
-					public static CBLErrorDomain: string;
-					public static SQLiteErrorDomain: string;
+					public static CBLITE: string;
+					public static SQLITE: string;
+					public static FLEECE: string;
 				}
 			}
 		}
@@ -498,27 +610,16 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class CBLVersion {
-				public static class: java.lang.Class<com.couchbase.lite.CBLVersion>;
-				public constructor();
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module lite {
-			export class ChangeListener<ChangeType>  extends java.lang.Object {
+			export class ChangeListener<T>  extends java.lang.Object {
 				public static class: java.lang.Class<com.couchbase.lite.ChangeListener<any>>;
 				/**
 				 * Constructs a new instance of the com.couchbase.lite.ChangeListener<any> interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 				 */
 				public constructor(implementation: {
-					changed(param0: ChangeType): void;
+					changed(param0: T): void;
 				});
 				public constructor();
-				public changed(param0: ChangeType): void;
+				public changed(param0: T): void;
 			}
 		}
 	}
@@ -527,7 +628,7 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class ChangeListenerToken<ChangeType>  extends com.couchbase.lite.ListenerToken {
+			export class ChangeListenerToken<T>  extends com.couchbase.lite.ListenerToken {
 				public static class: java.lang.Class<com.couchbase.lite.ChangeListenerToken<any>>;
 				public getKey(): any;
 				public setKey(param0: any): void;
@@ -539,7 +640,7 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class ChangeNotifier<ChangeType>  extends java.lang.Object {
+			export class ChangeNotifier<T>  extends java.lang.Object {
 				public static class: java.lang.Class<com.couchbase.lite.ChangeNotifier<any>>;
 			}
 		}
@@ -589,19 +690,99 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class CouchbaseLiteException implements com.couchbase.lite.CBLError.Domain {
+			export class Conflict {
+				public static class: java.lang.Class<com.couchbase.lite.Conflict>;
+				public getLocalDocument(): com.couchbase.lite.Document;
+				public getDocumentId(): string;
+				public getRemoteDocument(): com.couchbase.lite.Document;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class ConflictHandler {
+				public static class: java.lang.Class<com.couchbase.lite.ConflictHandler>;
+				/**
+				 * Constructs a new instance of the com.couchbase.lite.ConflictHandler interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+				 */
+				public constructor(implementation: {
+					handle(param0: com.couchbase.lite.MutableDocument, param1: com.couchbase.lite.Document): boolean;
+				});
+				public constructor();
+				public handle(param0: com.couchbase.lite.MutableDocument, param1: com.couchbase.lite.Document): boolean;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class ConflictResolver {
+				public static class: java.lang.Class<com.couchbase.lite.ConflictResolver>;
+				/**
+				 * Constructs a new instance of the com.couchbase.lite.ConflictResolver interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+				 */
+				public constructor(implementation: {
+					resolve(param0: com.couchbase.lite.Conflict): com.couchbase.lite.Document;
+					<clinit>(): void;
+				});
+				public constructor();
+				public static DEFAULT: com.couchbase.lite.ConflictResolver;
+				public resolve(param0: com.couchbase.lite.Conflict): com.couchbase.lite.Document;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class ConsoleLogger extends com.couchbase.lite.Logger {
+				public static class: java.lang.Class<com.couchbase.lite.ConsoleLogger>;
+				public setLevel(param0: com.couchbase.lite.LogLevel): void;
+				public getDomains(): java.util.EnumSet<com.couchbase.lite.LogDomain>;
+				public setDomains(param0: java.util.EnumSet<com.couchbase.lite.LogDomain>): void;
+				public log(param0: com.couchbase.lite.LogLevel, param1: com.couchbase.lite.LogDomain, param2: string): void;
+				public getLevel(): com.couchbase.lite.LogLevel;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class CouchbaseLite {
+				public static class: java.lang.Class<com.couchbase.lite.CouchbaseLite>;
+				public static getExecutionService(): com.couchbase.lite.internal.ExecutionService;
+				public static init(param0: globalAndroid.content.Context): void;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class CouchbaseLiteException {
 				public static class: java.lang.Class<com.couchbase.lite.CouchbaseLiteException>;
 				public constructor(param0: string, param1: string, param2: number);
-				public constructor(param0: string, param1: number, param2: java.lang.Throwable);
 				public getInfo(): java.util.Map<string,any>;
 				public constructor(param0: string, param1: java.lang.Throwable, param2: string, param3: number);
-				public constructor(param0: string, param1: number);
 				public getCode(): number;
-				public getDomain(): string;
-				public constructor(param0: string, param1: number, param2: java.util.Map<string,any>);
+				public constructor(param0: com.couchbase.lite.internal.CBLInternalException);
 				public toString(): string;
 				public constructor(param0: java.lang.Throwable);
 				public constructor(param0: string);
+				public constructor(param0: string, param1: number, param2: java.lang.Throwable);
+				public constructor(param0: string, param1: number);
+				public static isConflict(param0: com.couchbase.lite.CouchbaseLiteException): boolean;
+				public getDomain(): string;
+				public constructor(param0: string, param1: number, param2: java.util.Map<string,any>);
 			}
 		}
 	}
@@ -629,7 +810,10 @@ declare module com {
 		export module lite {
 			export class Database extends com.couchbase.lite.AbstractDatabase {
 				public static class: java.lang.Class<com.couchbase.lite.Database>;
+				public static copy(param0: java.io.File, param1: string, param2: com.couchbase.lite.DatabaseConfiguration, param3: number, param4: native.Array<number>): void;
+				public constructor(param0: com.couchbase.lite.internal.core.C4Database);
 				public constructor(param0: string, param1: com.couchbase.lite.DatabaseConfiguration);
+				public static copy(param0: java.io.File, param1: string, param2: com.couchbase.lite.DatabaseConfiguration): void;
 			}
 		}
 	}
@@ -659,6 +843,7 @@ declare module com {
 				public constructor(implementation: {
 					changed(param0: com.couchbase.lite.DatabaseChange): void;
 					changed(param0: any): void;
+					changed(param0: any): void;
 				});
 				public constructor();
 				public changed(param0: com.couchbase.lite.DatabaseChange): void;
@@ -671,12 +856,14 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class DatabaseConfiguration {
+			export class DatabaseConfiguration extends com.couchbase.lite.AbstractDatabaseConfiguration {
 				public static class: java.lang.Class<com.couchbase.lite.DatabaseConfiguration>;
-				public constructor(param0: globalAndroid.content.Context);
+				public setDirectory(param0: string): com.couchbase.lite.AbstractDatabaseConfiguration;
 				public setDirectory(param0: string): com.couchbase.lite.DatabaseConfiguration;
+				public getDatabaseConfiguration(): com.couchbase.lite.DatabaseConfiguration;
+				public constructor(param0: com.couchbase.lite.AbstractDatabaseConfiguration);
 				public constructor(param0: com.couchbase.lite.DatabaseConfiguration);
-				public getDirectory(): string;
+				public constructor();
 			}
 		}
 	}
@@ -685,10 +872,9 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class DefaultExecutor {
-				public static class: java.lang.Class<com.couchbase.lite.DefaultExecutor>;
-				public static instance(): com.couchbase.lite.DefaultExecutor;
-				public execute(param0: java.lang.Runnable): void;
+			export class DefaultConflictResolver extends com.couchbase.lite.ConflictResolver {
+				public static class: java.lang.Class<com.couchbase.lite.DefaultConflictResolver>;
+				public resolve(param0: com.couchbase.lite.Conflict): com.couchbase.lite.Document;
 			}
 		}
 	}
@@ -699,32 +885,32 @@ declare module com {
 		export module lite {
 			export class Dictionary extends java.lang.Object {
 				public static class: java.lang.Class<com.couchbase.lite.Dictionary>;
-				public _sharedLock: any;
-				public finalize(): void;
+				public lock: any;
+				public internalDict: com.couchbase.lite.internal.fleece.MDict;
+				public getLong(param0: string): number;
 				public getKeys(): java.util.List<string>;
 				public getValue(param0: string): any;
 				public getDictionary(param0: string): com.couchbase.lite.DictionaryInterface;
 				public getNumber(param0: string): java.lang.Number;
 				public toMutable(): com.couchbase.lite.MutableDictionary;
+				public getDouble(param0: string): number;
 				public contains(param0: string): boolean;
+				public getArray(param0: string): com.couchbase.lite.ArrayInterface;
+				public getDate(param0: string): java.util.Date;
 				public hashCode(): number;
+				public iterator(): java.util.Iterator<string>;
 				public getBoolean(param0: string): boolean;
 				public getDictionary(param0: string): com.couchbase.lite.Dictionary;
 				public equals(param0: any): boolean;
 				public getString(param0: string): string;
 				public getFloat(param0: string): number;
+				public count(): number;
 				public getBlob(param0: string): com.couchbase.lite.Blob;
 				public isEmpty(): boolean;
-				public getLong(param0: string): number;
-				public getDouble(param0: string): number;
-				public getArray(param0: string): com.couchbase.lite.ArrayInterface;
-				public getDate(param0: string): java.util.Date;
-				public iterator(): java.util.Iterator<string>;
-				public count(): number;
-				public encodeTo(param0: com.couchbase.litecore.fleece.FLEncoder): void;
 				public toMap(): java.util.Map<string,any>;
 				public getInt(param0: string): number;
 				public getArray(param0: string): com.couchbase.lite.Array;
+				public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
 			}
 		}
 	}
@@ -781,8 +967,9 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class DocContext extends com.couchbase.litecore.fleece.MContext {
+			export class DocContext extends com.couchbase.lite.internal.fleece.MContext {
 				public static class: java.lang.Class<com.couchbase.lite.DocContext>;
+				public finalize(): void;
 			}
 		}
 	}
@@ -800,6 +987,7 @@ declare module com {
 				public toMutable(): com.couchbase.lite.MutableDocument;
 				public getValue(param0: string): any;
 				public getDictionary(param0: string): com.couchbase.lite.DictionaryInterface;
+				public getRevisionID(): string;
 				public getNumber(param0: string): java.lang.Number;
 				public contains(param0: string): boolean;
 				public hashCode(): number;
@@ -812,6 +1000,7 @@ declare module com {
 				public getLong(param0: string): number;
 				public getDouble(param0: string): number;
 				public getArray(param0: string): com.couchbase.lite.ArrayInterface;
+				public constructor(param0: com.couchbase.lite.Database, param1: string, param2: com.couchbase.lite.internal.core.C4Document);
 				public getDate(param0: string): java.util.Date;
 				public iterator(): java.util.Iterator<string>;
 				public count(): number;
@@ -847,6 +1036,7 @@ declare module com {
 				public constructor(implementation: {
 					changed(param0: com.couchbase.lite.DocumentChange): void;
 					changed(param0: any): void;
+					changed(param0: any): void;
 				});
 				public constructor();
 				public changed(param0: com.couchbase.lite.DocumentChange): void;
@@ -862,6 +1052,73 @@ declare module com {
 			export class DocumentChangeNotifier extends com.couchbase.lite.ChangeNotifier<com.couchbase.lite.DocumentChange> {
 				public static class: java.lang.Class<com.couchbase.lite.DocumentChangeNotifier>;
 				public finalize(): void;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class DocumentExpirationStrategy {
+				public static class: java.lang.Class<com.couchbase.lite.DocumentExpirationStrategy>;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class DocumentFlag {
+				public static class: java.lang.Class<com.couchbase.lite.DocumentFlag>;
+				public static DocumentFlagsDeleted: com.couchbase.lite.DocumentFlag;
+				public static DocumentFlagsAccessRemoved: com.couchbase.lite.DocumentFlag;
+				public static values(): native.Array<com.couchbase.lite.DocumentFlag>;
+				public rawValue(): number;
+				public static valueOf(param0: string): com.couchbase.lite.DocumentFlag;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class DocumentReplication {
+				public static class: java.lang.Class<com.couchbase.lite.DocumentReplication>;
+				public isPush(): boolean;
+				public toString(): string;
+				public getReplicator(): com.couchbase.lite.Replicator;
+				public getDocuments(): java.util.List<com.couchbase.lite.ReplicatedDocument>;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class DocumentReplicationListener {
+				public static class: java.lang.Class<com.couchbase.lite.DocumentReplicationListener>;
+				/**
+				 * Constructs a new instance of the com.couchbase.lite.DocumentReplicationListener interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+				 */
+				public constructor(implementation: {
+					replication(param0: com.couchbase.lite.DocumentReplication): void;
+				});
+				public constructor();
+				public replication(param0: com.couchbase.lite.DocumentReplication): void;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class DocumentReplicationListenerToken extends com.couchbase.lite.ListenerToken {
+				public static class: java.lang.Class<com.couchbase.lite.DocumentReplicationListenerToken>;
 			}
 		}
 	}
@@ -901,6 +1158,7 @@ declare module com {
 				public static booleanValue(param0: boolean): com.couchbase.lite.Expression;
 				public static property(param0: string): com.couchbase.lite.PropertyExpression;
 				public static number(param0: java.lang.Number): com.couchbase.lite.Expression;
+				public static map(param0: java.util.Map<string,any>): com.couchbase.lite.Expression;
 				public static doubleValue(param0: number): com.couchbase.lite.Expression;
 				public isNullOrMissing(): com.couchbase.lite.Expression;
 				public static all(): com.couchbase.lite.PropertyExpression;
@@ -917,6 +1175,7 @@ declare module com {
 				public or(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
 				public lessThanOrEqualTo(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
 				public toString(): string;
+				public static list(param0: java.util.List<any>): com.couchbase.lite.Expression;
 				public lessThan(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
 				public static value(param0: any): com.couchbase.lite.Expression;
 				public static longValue(param0: number): com.couchbase.lite.Expression;
@@ -974,8 +1233,8 @@ declare module com {
 						public static values(): native.Array<com.couchbase.lite.Expression.CompoundExpression.OpType>;
 					}
 				}
-				export class FunctionExpresson extends com.couchbase.lite.Expression {
-					public static class: java.lang.Class<com.couchbase.lite.Expression.FunctionExpresson>;
+				export class FunctionExpression extends com.couchbase.lite.Expression {
+					public static class: java.lang.Class<com.couchbase.lite.Expression.FunctionExpression>;
 				}
 				export class ParameterExpression extends com.couchbase.lite.Expression {
 					public static class: java.lang.Class<com.couchbase.lite.Expression.ParameterExpression>;
@@ -1005,7 +1264,22 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class Fleece extends com.couchbase.litecore.fleece.FLConstants.FLValueType {
+			export class FileLogger extends com.couchbase.lite.Logger {
+				public static class: java.lang.Class<com.couchbase.lite.FileLogger>;
+				public setConfig(param0: com.couchbase.lite.LogFileConfiguration): void;
+				public setLevel(param0: com.couchbase.lite.LogLevel): void;
+				public log(param0: com.couchbase.lite.LogLevel, param1: com.couchbase.lite.LogDomain, param2: string): void;
+				public getConfig(): com.couchbase.lite.LogFileConfiguration;
+				public getLevel(): com.couchbase.lite.LogLevel;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class Fleece {
 				public static class: java.lang.Class<com.couchbase.lite.Fleece>;
 			}
 		}
@@ -1107,44 +1381,8 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class Function {
+			export class Function extends com.couchbase.lite.AbstractFunction {
 				public static class: java.lang.Class<com.couchbase.lite.Function>;
-				public static abs(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static contains(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static length(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static trunc(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static ln(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static trim(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static e(): com.couchbase.lite.Expression;
-				public static rtrim(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static sum(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static upper(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static sign(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static tan(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static degrees(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static avg(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static round(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static min(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static max(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static atan2(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static cos(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static pi(): com.couchbase.lite.Expression;
-				public static ltrim(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static atan(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static acos(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static power(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static trunc(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static asin(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static sqrt(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static floor(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static radians(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static ceil(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static lower(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static exp(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static round(param0: com.couchbase.lite.Expression, param1: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static count(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static log(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
-				public static sin(param0: com.couchbase.lite.Expression): com.couchbase.lite.Expression;
 			}
 		}
 	}
@@ -1246,10 +1484,8 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class IndexBuilder {
+			export class IndexBuilder extends com.couchbase.lite.AbstractIndexBuilder {
 				public static class: java.lang.Class<com.couchbase.lite.IndexBuilder>;
-				public static fullTextIndex(param0: native.Array<com.couchbase.lite.FullTextIndexItem>): com.couchbase.lite.FullTextIndex;
-				public static valueIndex(param0: native.Array<com.couchbase.lite.ValueIndexItem>): com.couchbase.lite.ValueIndex;
 				public constructor();
 			}
 		}
@@ -1263,7 +1499,7 @@ declare module com {
 				public static class: java.lang.Class<com.couchbase.lite.IndexType>;
 				public static Value: com.couchbase.lite.IndexType;
 				public static FullText: com.couchbase.lite.IndexType;
-				public static Geo: com.couchbase.lite.IndexType;
+				public static Predictive: com.couchbase.lite.IndexType;
 				public static values(): native.Array<com.couchbase.lite.IndexType>;
 				public static valueOf(param0: string): com.couchbase.lite.IndexType;
 			}
@@ -1286,6 +1522,15 @@ declare module com {
 				export class On extends com.couchbase.lite.Join {
 					public static class: java.lang.Class<com.couchbase.lite.Join.On>;
 					public on(param0: com.couchbase.lite.Expression): com.couchbase.lite.Join;
+				}
+				export class Type {
+					public static class: java.lang.Class<com.couchbase.lite.Join.Type>;
+					public static INNER: com.couchbase.lite.Join.Type;
+					public static LEFT_OUTER: com.couchbase.lite.Join.Type;
+					public static CROSS: com.couchbase.lite.Join.Type;
+					public static valueOf(param0: string): com.couchbase.lite.Join.Type;
+					public static values(): native.Array<com.couchbase.lite.Join.Type>;
+					public getTag(): string;
 				}
 			}
 		}
@@ -1387,12 +1632,53 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
+			export class LiteCoreException {
+				public static class: java.lang.Class<com.couchbase.lite.LiteCoreException>;
+				public domain: number;
+				public code: number;
+				public constructor(param0: number, param1: number, param2: string);
+				public getCode(): number;
+				public static throwException(param0: number, param1: number, param2: string): void;
+				public toString(): string;
+				public getDomain(): number;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
 			export class LiveQuery extends com.couchbase.lite.DatabaseChangeListener {
 				public static class: java.lang.Class<com.couchbase.lite.LiveQuery>;
 				public changed(param0: com.couchbase.lite.DatabaseChange): void;
 				public finalize(): void;
 				public toString(): string;
 				public changed(param0: any): void;
+			}
+			export module LiveQuery {
+				export class State {
+					public static class: java.lang.Class<com.couchbase.lite.LiveQuery.State>;
+					public static STOPPED: com.couchbase.lite.LiveQuery.State;
+					public static STARTED: com.couchbase.lite.LiveQuery.State;
+					public static SCHEDULED: com.couchbase.lite.LiveQuery.State;
+					public static values(): native.Array<com.couchbase.lite.LiveQuery.State>;
+					public static valueOf(param0: string): com.couchbase.lite.LiveQuery.State;
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class Log {
+				public static class: java.lang.Class<com.couchbase.lite.Log>;
+				public getCustom(): com.couchbase.lite.Logger;
+				public getFile(): com.couchbase.lite.FileLogger;
+				public getConsole(): com.couchbase.lite.ConsoleLogger;
+				public setCustom(param0: com.couchbase.lite.Logger): void;
 			}
 		}
 	}
@@ -1410,6 +1696,26 @@ declare module com {
 				public static NETWORK: com.couchbase.lite.LogDomain;
 				public static values(): native.Array<com.couchbase.lite.LogDomain>;
 				public static valueOf(param0: string): com.couchbase.lite.LogDomain;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class LogFileConfiguration {
+				public static class: java.lang.Class<com.couchbase.lite.LogFileConfiguration>;
+				public usesPlaintext(): boolean;
+				public constructor(param0: string, param1: com.couchbase.lite.LogFileConfiguration);
+				public setMaxRotateCount(param0: number): com.couchbase.lite.LogFileConfiguration;
+				public getMaxSize(): number;
+				public getMaxRotateCount(): number;
+				public setMaxSize(param0: number): com.couchbase.lite.LogFileConfiguration;
+				public constructor(param0: string);
+				public constructor(param0: com.couchbase.lite.LogFileConfiguration);
+				public setUsePlaintext(param0: boolean): com.couchbase.lite.LogFileConfiguration;
+				public getDirectory(): string;
 			}
 		}
 	}
@@ -1437,11 +1743,31 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class MValueDelegate implements com.couchbase.litecore.fleece.MValue.Delegate, com.couchbase.litecore.fleece.FLConstants.FLValueType {
+			export class Logger {
+				public static class: java.lang.Class<com.couchbase.lite.Logger>;
+				/**
+				 * Constructs a new instance of the com.couchbase.lite.Logger interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+				 */
+				public constructor(implementation: {
+					getLevel(): com.couchbase.lite.LogLevel;
+					log(param0: com.couchbase.lite.LogLevel, param1: com.couchbase.lite.LogDomain, param2: string): void;
+				});
+				public constructor();
+				public log(param0: com.couchbase.lite.LogLevel, param1: com.couchbase.lite.LogDomain, param2: string): void;
+				public getLevel(): com.couchbase.lite.LogLevel;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class MValueDelegate extends com.couchbase.lite.internal.fleece.MValue.Delegate {
 				public static class: java.lang.Class<com.couchbase.lite.MValueDelegate>;
-				public toNative(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection, param2: java.util.concurrent.atomic.AtomicBoolean): any;
-				public encodeNative(param0: com.couchbase.litecore.fleece.Encoder, param1: any): void;
-				public collectionFromNative(param0: any): com.couchbase.litecore.fleece.MCollection;
+				public encodeNative(param0: com.couchbase.lite.internal.fleece.FLEncoder, param1: any): void;
+				public collectionFromNative(param0: any): com.couchbase.lite.internal.fleece.MCollection;
+				public toNative(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection, param2: java.util.concurrent.atomic.AtomicBoolean): any;
 			}
 		}
 	}
@@ -1454,6 +1780,8 @@ declare module com {
 				public static class: java.lang.Class<com.couchbase.lite.Meta>;
 				public static id: com.couchbase.lite.MetaExpression;
 				public static sequence: com.couchbase.lite.MetaExpression;
+				public static deleted: com.couchbase.lite.MetaExpression;
+				public static expiration: com.couchbase.lite.MetaExpression;
 			}
 		}
 	}
@@ -1517,7 +1845,6 @@ declare module com {
 				public insertInt(param0: number, param1: number): com.couchbase.lite.MutableArrayInterface;
 				public setBoolean(param0: number, param1: boolean): com.couchbase.lite.MutableArrayInterface;
 				public setBlob(param0: number, param1: com.couchbase.lite.Blob): com.couchbase.lite.MutableArrayInterface;
-				public encodeTo(param0: com.couchbase.litecore.fleece.FLEncoder): void;
 				public setArray(param0: number, param1: com.couchbase.lite.Array): com.couchbase.lite.MutableArray;
 				public insertFloat(param0: number, param1: number): com.couchbase.lite.MutableArray;
 				public setData(param0: java.util.List<any>): com.couchbase.lite.MutableArray;
@@ -1564,6 +1891,7 @@ declare module com {
 				public addDouble(param0: number): com.couchbase.lite.MutableArrayInterface;
 				public getLong(param0: number): number;
 				public addLong(param0: number): com.couchbase.lite.MutableArray;
+				public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
 				public setDictionary(param0: number, param1: com.couchbase.lite.Dictionary): com.couchbase.lite.MutableArray;
 				public addValue(param0: any): com.couchbase.lite.MutableArray;
 				public setValue(param0: number, param1: any): com.couchbase.lite.MutableArrayInterface;
@@ -1628,6 +1956,8 @@ declare module com {
 					remove(param0: number): com.couchbase.lite.MutableArrayInterface;
 					getArray(param0: number): com.couchbase.lite.MutableArrayInterface;
 					getDictionary(param0: number): com.couchbase.lite.MutableDictionaryInterface;
+					getDictionary(param0: number): com.couchbase.lite.DictionaryInterface;
+					getArray(param0: number): com.couchbase.lite.ArrayInterface;
 					count(): number;
 					getValue(param0: number): any;
 					getString(param0: number): string;
@@ -1735,7 +2065,6 @@ declare module com {
 				public isChanged(): boolean;
 				public getArray(param0: string): com.couchbase.lite.Array;
 				public getDictionary(param0: string): com.couchbase.lite.MutableDictionaryInterface;
-				public finalize(): void;
 				public setValue(param0: string, param1: any): com.couchbase.lite.MutableDictionary;
 				public getKeys(): java.util.List<string>;
 				public setString(param0: string, param1: string): com.couchbase.lite.MutableDictionary;
@@ -1750,6 +2079,7 @@ declare module com {
 				public getBlob(param0: string): com.couchbase.lite.Blob;
 				public remove(param0: string): com.couchbase.lite.MutableDictionary;
 				public setDate(param0: string, param1: java.util.Date): com.couchbase.lite.MutableDictionary;
+				public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
 				public setData(param0: java.util.Map<string,any>): com.couchbase.lite.MutableDictionary;
 				public setLong(param0: string, param1: number): com.couchbase.lite.MutableDictionary;
 				public setBoolean(param0: string, param1: boolean): com.couchbase.lite.MutableDictionaryInterface;
@@ -1759,7 +2089,6 @@ declare module com {
 				public getDouble(param0: string): number;
 				public getDate(param0: string): java.util.Date;
 				public count(): number;
-				public encodeTo(param0: com.couchbase.litecore.fleece.FLEncoder): void;
 				public toMap(): java.util.Map<string,any>;
 				public setNumber(param0: string, param1: java.lang.Number): com.couchbase.lite.MutableDictionaryInterface;
 				public getInt(param0: string): number;
@@ -1793,6 +2122,8 @@ declare module com {
 					remove(param0: string): com.couchbase.lite.MutableDictionaryInterface;
 					getArray(param0: string): com.couchbase.lite.MutableArrayInterface;
 					getDictionary(param0: string): com.couchbase.lite.MutableDictionaryInterface;
+					getDictionary(param0: string): com.couchbase.lite.DictionaryInterface;
+					getArray(param0: string): com.couchbase.lite.ArrayInterface;
 					count(): number;
 					getKeys(): java.util.List<string>;
 					getValue(param0: string): any;
@@ -1851,7 +2182,7 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class MutableDocument extends com.couchbase.lite.Document implements com.couchbase.lite.MutableDictionaryInterface, com.couchbase.litecore.C4Constants {
+			export class MutableDocument extends com.couchbase.lite.Document implements com.couchbase.lite.MutableDictionaryInterface {
 				public static class: java.lang.Class<com.couchbase.lite.MutableDocument>;
 				public setDate(param0: string, param1: java.util.Date): com.couchbase.lite.MutableDictionaryInterface;
 				public setArray(param0: string, param1: com.couchbase.lite.Array): com.couchbase.lite.MutableDocument;
@@ -1876,6 +2207,7 @@ declare module com {
 				public constructor(param0: java.util.Map<string,any>);
 				public setValue(param0: string, param1: any): com.couchbase.lite.MutableDictionaryInterface;
 				public getArray(param0: string): com.couchbase.lite.ArrayInterface;
+				public constructor(param0: com.couchbase.lite.Database, param1: string, param2: com.couchbase.lite.internal.core.C4Document);
 				public setInt(param0: string, param1: number): com.couchbase.lite.MutableDictionaryInterface;
 				public getDictionary(param0: string): com.couchbase.lite.MutableDictionary;
 				public getArray(param0: string): com.couchbase.lite.Array;
@@ -1900,6 +2232,7 @@ declare module com {
 				public setInt(param0: string, param1: number): com.couchbase.lite.MutableDocument;
 				public setBoolean(param0: string, param1: boolean): com.couchbase.lite.MutableDictionaryInterface;
 				public setDouble(param0: string, param1: number): com.couchbase.lite.MutableDocument;
+				public constructor(param0: com.couchbase.lite.Document);
 				public setFloat(param0: string, param1: number): com.couchbase.lite.MutableDocument;
 				public getDouble(param0: string): number;
 				public getDate(param0: string): java.util.Date;
@@ -1936,8 +2269,14 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export abstract class NetworkReachabilityManager {
+			export class NetworkReachabilityManager extends com.couchbase.lite.AbstractNetworkReachabilityManager {
 				public static class: java.lang.Class<com.couchbase.lite.NetworkReachabilityManager>;
+			}
+			export module NetworkReachabilityManager {
+				export class NetworkReceiver {
+					public static class: java.lang.Class<com.couchbase.lite.NetworkReachabilityManager.NetworkReceiver>;
+					public onReceive(param0: globalAndroid.content.Context, param1: globalAndroid.content.Intent): void;
+				}
 			}
 		}
 	}
@@ -1986,6 +2325,7 @@ declare module com {
 			export abstract class Ordering {
 				public static class: java.lang.Class<com.couchbase.lite.Ordering>;
 				public static expression(param0: com.couchbase.lite.Expression): com.couchbase.lite.Ordering.SortOrder;
+				public constructor();
 				public static property(param0: string): com.couchbase.lite.Ordering.SortOrder;
 			}
 			export module Ordering {
@@ -2004,18 +2344,21 @@ declare module com {
 		export module lite {
 			export class Parameters {
 				public static class: java.lang.Class<com.couchbase.lite.Parameters>;
-				public setInt(param0: string, param1: number): com.couchbase.lite.Parameters;
-				public setDate(param0: string, param1: java.util.Date): com.couchbase.lite.Parameters;
 				public setDouble(param0: string, param1: number): com.couchbase.lite.Parameters;
+				public setBlob(param0: string, param1: com.couchbase.lite.Blob): com.couchbase.lite.Parameters;
 				public setLong(param0: string, param1: number): com.couchbase.lite.Parameters;
 				public constructor(param0: com.couchbase.lite.Parameters);
-				public setString(param0: string, param1: string): com.couchbase.lite.Parameters;
-				public setNumber(param0: string, param1: java.lang.Number): com.couchbase.lite.Parameters;
-				public setValue(param0: string, param1: any): com.couchbase.lite.Parameters;
 				public setBoolean(param0: string, param1: boolean): com.couchbase.lite.Parameters;
 				public constructor();
-				public setFloat(param0: string, param1: number): com.couchbase.lite.Parameters;
 				public getValue(param0: string): any;
+				public setInt(param0: string, param1: number): com.couchbase.lite.Parameters;
+				public setDate(param0: string, param1: java.util.Date): com.couchbase.lite.Parameters;
+				public setDictionary(param0: string, param1: com.couchbase.lite.Dictionary): com.couchbase.lite.Parameters;
+				public setString(param0: string, param1: string): com.couchbase.lite.Parameters;
+				public setNumber(param0: string, param1: java.lang.Number): com.couchbase.lite.Parameters;
+				public setArray(param0: string, param1: com.couchbase.lite.Array): com.couchbase.lite.Parameters;
+				public setValue(param0: string, param1: any): com.couchbase.lite.Parameters;
+				public setFloat(param0: string, param1: number): com.couchbase.lite.Parameters;
 			}
 		}
 	}
@@ -2098,10 +2441,43 @@ declare module com {
 				public constructor(implementation: {
 					changed(param0: com.couchbase.lite.QueryChange): void;
 					changed(param0: any): void;
+					changed(param0: any): void;
 				});
 				public constructor();
 				public changed(param0: com.couchbase.lite.QueryChange): void;
 				public changed(param0: any): void;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class ReplicatedDocument {
+				public static class: java.lang.Class<com.couchbase.lite.ReplicatedDocument>;
+				public flags(): java.util.EnumSet<com.couchbase.lite.DocumentFlag>;
+				public getError(): com.couchbase.lite.CouchbaseLiteException;
+				public toString(): string;
+				public getID(): string;
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export class ReplicationFilter {
+				public static class: java.lang.Class<com.couchbase.lite.ReplicationFilter>;
+				/**
+				 * Constructs a new instance of the com.couchbase.lite.ReplicationFilter interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+				 */
+				public constructor(implementation: {
+					filtered(param0: com.couchbase.lite.Document, param1: java.util.EnumSet<com.couchbase.lite.DocumentFlag>): boolean;
+				});
+				public constructor();
+				public filtered(param0: com.couchbase.lite.Document, param1: java.util.EnumSet<com.couchbase.lite.DocumentFlag>): boolean;
 			}
 		}
 	}
@@ -2162,36 +2538,10 @@ declare module com {
 declare module com {
 	export module couchbase {
 		export module lite {
-			export class ReplicatorConfiguration {
+			export class ReplicatorConfiguration extends com.couchbase.lite.AbstractReplicatorConfiguration {
 				public static class: java.lang.Class<com.couchbase.lite.ReplicatorConfiguration>;
-				public setContinuous(param0: boolean): com.couchbase.lite.ReplicatorConfiguration;
-				public setReplicatorType(param0: com.couchbase.lite.ReplicatorConfiguration.ReplicatorType): com.couchbase.lite.ReplicatorConfiguration;
-				public setPinnedServerCertificate(param0: native.Array<number>): com.couchbase.lite.ReplicatorConfiguration;
-				public setHeaders(param0: java.util.Map<string,string>): com.couchbase.lite.ReplicatorConfiguration;
-				public constructor(param0: com.couchbase.lite.ReplicatorConfiguration);
-				public getPinnedServerCertificate(): native.Array<number>;
-				public setAuthenticator(param0: com.couchbase.lite.Authenticator): com.couchbase.lite.ReplicatorConfiguration;
-				public getDatabase(): com.couchbase.lite.Database;
-				public isContinuous(): boolean;
-				public getHeaders(): java.util.Map<string,string>;
-				public getChannels(): java.util.List<string>;
 				public constructor(param0: com.couchbase.lite.Database, param1: com.couchbase.lite.Endpoint);
-				public getDocumentIDs(): java.util.List<string>;
-				public getReplicatorType(): com.couchbase.lite.ReplicatorConfiguration.ReplicatorType;
-				public getAuthenticator(): com.couchbase.lite.Authenticator;
-				public setChannels(param0: java.util.List<string>): com.couchbase.lite.ReplicatorConfiguration;
-				public setDocumentIDs(param0: java.util.List<string>): com.couchbase.lite.ReplicatorConfiguration;
-				public getTarget(): com.couchbase.lite.Endpoint;
-			}
-			export module ReplicatorConfiguration {
-				export class ReplicatorType {
-					public static class: java.lang.Class<com.couchbase.lite.ReplicatorConfiguration.ReplicatorType>;
-					public static PUSH_AND_PULL: com.couchbase.lite.ReplicatorConfiguration.ReplicatorType;
-					public static PUSH: com.couchbase.lite.ReplicatorConfiguration.ReplicatorType;
-					public static PULL: com.couchbase.lite.ReplicatorConfiguration.ReplicatorType;
-					public static valueOf(param0: string): com.couchbase.lite.ReplicatorConfiguration.ReplicatorType;
-					public static values(): native.Array<com.couchbase.lite.ReplicatorConfiguration.ReplicatorType>;
-				}
+				public constructor(param0: com.couchbase.lite.ReplicatorConfiguration);
 			}
 		}
 	}
@@ -2409,19 +2759,1655 @@ declare module com {
 	export module couchbase {
 		export module lite {
 			export module internal {
-				export module replicator {
-					export class CBLWebSocket extends com.couchbase.litecore.C4Socket {
-						public static class: java.lang.Class<com.couchbase.lite.internal.replicator.CBLWebSocket>;
-						public requestClose(param0: number, param1: string): void;
-						public static socket_open(param0: number, param1: number, param2: string, param3: string, param4: number, param5: string, param6: native.Array<number>): void;
-						public start(): void;
+				export class AndroidExecutionService extends com.couchbase.lite.internal.ExecutionService {
+					public static class: java.lang.Class<com.couchbase.lite.internal.AndroidExecutionService>;
+					public postDelayedOnExecutor(param0: number, param1: java.util.concurrent.Executor, param2: java.lang.Runnable): java.lang.Runnable;
+					public cancelDelayedTask(param0: java.lang.Runnable): void;
+					public constructor();
+					public getMainExecutor(): java.util.concurrent.Executor;
+					public getConcurrentExecutor(): com.couchbase.lite.internal.ExecutionService.CloseableExecutor;
+					public getSerialExecutor(): com.couchbase.lite.internal.ExecutionService.CloseableExecutor;
+				}
+				export module AndroidExecutionService {
+					export class ConcurrentExecutor extends com.couchbase.lite.internal.ExecutionService.CloseableExecutor {
+						public static class: java.lang.Class<com.couchbase.lite.internal.AndroidExecutionService.ConcurrentExecutor>;
+						public execute(param0: java.lang.Runnable): void;
+						public stop(param0: number, param1: java.util.concurrent.TimeUnit): boolean;
+					}
+					export class SerialExecutor extends com.couchbase.lite.internal.ExecutionService.CloseableExecutor {
+						public static class: java.lang.Class<com.couchbase.lite.internal.AndroidExecutionService.SerialExecutor>;
+						public execute(param0: java.lang.Runnable): void;
+						public stop(param0: number, param1: java.util.concurrent.TimeUnit): boolean;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export class CBLInternalException {
+					public static class: java.lang.Class<com.couchbase.lite.internal.CBLInternalException>;
+					public static FAILED_SELECTING_CONFLICTING_REVISION: number;
+					public constructor(param0: number, param1: string, param2: java.lang.Throwable);
+					public constructor(param0: number, param1: string);
+					public constructor(param0: number);
+					public getCode(): number;
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export class ExecutionService {
+					public static class: java.lang.Class<com.couchbase.lite.internal.ExecutionService>;
+					/**
+					 * Constructs a new instance of the com.couchbase.lite.internal.ExecutionService interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+					 */
+					public constructor(implementation: {
+						getMainExecutor(): java.util.concurrent.Executor;
+						getSerialExecutor(): com.couchbase.lite.internal.ExecutionService.CloseableExecutor;
+						getConcurrentExecutor(): com.couchbase.lite.internal.ExecutionService.CloseableExecutor;
+						postDelayedOnExecutor(param0: number, param1: java.util.concurrent.Executor, param2: java.lang.Runnable): java.lang.Runnable;
+						cancelDelayedTask(param0: java.lang.Runnable): void;
+					});
+					public constructor();
+					public postDelayedOnExecutor(param0: number, param1: java.util.concurrent.Executor, param2: java.lang.Runnable): java.lang.Runnable;
+					public cancelDelayedTask(param0: java.lang.Runnable): void;
+					public getMainExecutor(): java.util.concurrent.Executor;
+					public getConcurrentExecutor(): com.couchbase.lite.internal.ExecutionService.CloseableExecutor;
+					public getSerialExecutor(): com.couchbase.lite.internal.ExecutionService.CloseableExecutor;
+				}
+				export module ExecutionService {
+					export class CloseableExecutor {
+						public static class: java.lang.Class<com.couchbase.lite.internal.ExecutionService.CloseableExecutor>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.ExecutionService$CloseableExecutor interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							stop(param0: number, param1: java.util.concurrent.TimeUnit): boolean;
+						});
+						public constructor();
+						public stop(param0: number, param1: java.util.concurrent.TimeUnit): boolean;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4 {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4>;
+						public constructor();
+						public static setenv(param0: string, param1: string, param2: number): void;
+						public static getenv(param0: string): string;
+						public static getBuildInfo(): string;
+						public static getVersion(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Base {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Base>;
+						public static getMessage(param0: number, param1: number, param2: number): string;
+						public constructor();
+						public static setTempDir(param0: string): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4BlobKey {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4BlobKey>;
+						public free(): void;
+						public toString(): string;
+						public constructor(param0: string);
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4BlobReadStream {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4BlobReadStream>;
 						public close(): void;
+						public read(param0: number): native.Array<number>;
+						public getLength(): number;
+						public seek(param0: number): void;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4BlobStore {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4BlobStore>;
+						public openReadStream(param0: com.couchbase.lite.internal.core.C4BlobKey): com.couchbase.lite.internal.core.C4BlobReadStream;
+						public openWriteStream(): com.couchbase.lite.internal.core.C4BlobWriteStream;
+						public create(param0: native.Array<number>): com.couchbase.lite.internal.core.C4BlobKey;
+						public static open(param0: string, param1: number): com.couchbase.lite.internal.core.C4BlobStore;
+						public delete(): void;
+						public getSize(param0: com.couchbase.lite.internal.core.C4BlobKey): number;
+						public free(): void;
+						public getContents(param0: com.couchbase.lite.internal.core.C4BlobKey): com.couchbase.lite.internal.fleece.FLSliceResult;
+						public delete(param0: com.couchbase.lite.internal.core.C4BlobKey): void;
+						public getFilePath(param0: com.couchbase.lite.internal.core.C4BlobKey): string;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4BlobWriteStream {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4BlobWriteStream>;
+						public close(): void;
+						public write(param0: native.Array<number>): void;
+						public install(): void;
+						public computeBlobKey(): com.couchbase.lite.internal.core.C4BlobKey;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Constants {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants>;
+					}
+					export module C4Constants {
+						export class DatabaseFlags {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.DatabaseFlags>;
+							public static CREATE: number;
+							public static READ_ONLY: number;
+							public static AUTO_COMPACT: number;
+							public static SHARED_KEYS: number;
+							public static NO_UPGRADE: number;
+							public static NON_OBSERVABLE: number;
+						}
+						export class DocumentFlags {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.DocumentFlags>;
+							public static DELETED: number;
+							public static CONFLICTED: number;
+							public static HAS_ATTACHMENTS: number;
+							public static EXISTS: number;
+						}
+						export class DocumentVersioning {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.DocumentVersioning>;
+							public static REVISION_TREES: number;
+							public static VERSION_VECTORS: number;
+						}
+						export class EncryptionAlgorithm {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.EncryptionAlgorithm>;
+							public static NONE: number;
+							public static AES256: number;
+						}
+						export class EncryptionKeySize {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.EncryptionKeySize>;
+							public static AES256: number;
+						}
+						export class EnumeratorFlags {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.EnumeratorFlags>;
+							public static DESCENDING: number;
+							public static INCLUDE_DELETED: number;
+							public static INCLUDE_NON_CONFLICTED: number;
+							public static INCLUDE_BODIES: number;
+							public static DEFAULT: number;
+						}
+						export class ErrorDomain {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.ErrorDomain>;
+							public static LITE_CORE: number;
+							public static POSIX: number;
+							public static SQLITE: number;
+							public static FLEECE: number;
+							public static NETWORK: number;
+							public static WEB_SOCKET: number;
+							public static MAX_ERROR_DOMAINS: number;
+						}
+						export class IndexType {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.IndexType>;
+							public static VALUE: number;
+							public static FULL_TEXT: number;
+							public static GEO: number;
+						}
+						export class LiteCoreError {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.LiteCoreError>;
+							public static ASSERTION_FAILED: number;
+							public static UNIMPLEMENTED: number;
+							public static UNSUPPORTED_ENCRYPTION: number;
+							public static BAD_REVISIONID: number;
+							public static CORRUPT_REVISION_DATA: number;
+							public static NOT_OPEN: number;
+							public static NOT_FOUND: number;
+							public static CONFLICT: number;
+							public static INVALID_PARAMETER: number;
+							public static UNEXPECTED_ERROR: number;
+							public static CANT_OPEN_FILE: number;
+							public static IO_ERROR: number;
+							public static MEMORY_ERROR: number;
+							public static NOT_WRITEABLE: number;
+							public static CORRUPT_DATA: number;
+							public static BUSY: number;
+							public static NOT_IN_TRANSACTION: number;
+							public static TRANSACTION_NOT_CLOSED: number;
+							public static UNSUPPORTED: number;
+							public static NOT_A_DATABSE_FILE: number;
+							public static WRONG_FORMAT: number;
+							public static CRYPTO: number;
+							public static INVALID_QUERY: number;
+							public static MISSING_INDEX: number;
+							public static INVALID_QUERY_PARAM: number;
+							public static REMOTE_ERROR: number;
+							public static DATABASE_TOO_OLD: number;
+							public static DATABASE_TOO_NEW: number;
+							public static BAD_DOC_ID: number;
+							public static CANT_UPGRADE_DATABASE: number;
+							public static MAX_ERROR_CODES: number;
+						}
+						export class LogDomain {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.LogDomain>;
+							public static DATABASE: string;
+							public static QUERY: string;
+							public static SYNC: string;
+							public static WEB_SOCKET: string;
+							public static BLIP: string;
+							public static SYNC_BUSY: string;
+						}
+						export class LogLevel {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.LogLevel>;
+							public static DEBUG: number;
+							public static VERBOSE: number;
+							public static INFO: number;
+							public static WARNING: number;
+							public static ERROR: number;
+							public static NONE: number;
+						}
+						export class NetworkError {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.NetworkError>;
+							public static DNS_FAILURE: number;
+							public static UNKNOWN_HOST: number;
+							public static TIMEOUT: number;
+							public static INVALIDURL: number;
+							public static TOO_MANY_REDIRECTS: number;
+							public static TLS_HANDSHAKE_FAILED: number;
+							public static TLS_CERT_EXPIRED: number;
+							public static TLS_CERT_UNTRUSTED: number;
+							public static TLS_CLIENT_CERT_REQUIRED: number;
+							public static TLS_CLIENT_CERT_REJECTED: number;
+							public static TLS_CERT_UNKNOWN_ROOT: number;
+							public static INVALID_REDIRECT: number;
+						}
+						export class RevisionFlags {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Constants.RevisionFlags>;
+							public static DELETED: number;
+							public static LEAF: number;
+							public static NEW: number;
+							public static HAS_ATTACHMENTS: number;
+							public static KEEP_BODY: number;
+							public static IS_CONFLICT: number;
+							public static CLOSED: number;
+							public static PURGED: number;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Database {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Database>;
+						public getSharedFleeceEncoder(): com.couchbase.lite.internal.fleece.FLEncoder;
+						public delete(): void;
+						public get(param0: string, param1: boolean): com.couchbase.lite.internal.core.C4Document;
+						public put(param0: com.couchbase.lite.internal.fleece.FLSliceResult, param1: string, param2: number, param3: boolean, param4: boolean, param5: native.Array<string>, param6: boolean, param7: number, param8: number): com.couchbase.lite.internal.core.C4Document;
+						public retain(): com.couchbase.lite.internal.core.C4Database;
+						public close(): void;
+						public getDocumentCount(): number;
+						public createReplicator(param0: string, param1: string, param2: number, param3: string, param4: string, param5: com.couchbase.lite.internal.core.C4Database, param6: number, param7: number, param8: native.Array<number>, param9: com.couchbase.lite.internal.core.C4ReplicatorListener, param10: com.couchbase.lite.internal.core.C4ReplicationFilter, param11: com.couchbase.lite.internal.core.C4ReplicationFilter, param12: any, param13: any, param14: number): com.couchbase.lite.internal.core.C4Replicator;
+						public getPublicUUID(): native.Array<number>;
+						public purgeExpiredDocs(): number;
+						public getPath(): string;
+						public setMaxRevTreeDepth(param0: number): void;
+						public purgeDoc(param0: string): void;
+						public getBlobStore(): com.couchbase.lite.internal.core.C4BlobStore;
+						public endTransaction(param0: boolean): void;
+						public put(param0: native.Array<number>, param1: string, param2: number, param3: boolean, param4: boolean, param5: native.Array<string>, param6: boolean, param7: number, param8: number): com.couchbase.lite.internal.core.C4Document;
+						public finalize(): void;
+						public rawGet(param0: string, param1: string): com.couchbase.lite.internal.core.C4RawDocument;
+						public beginTransaction(): void;
+						public free(): void;
+						public createDatabaseObserver(param0: com.couchbase.lite.internal.core.C4DatabaseObserverListener, param1: any): com.couchbase.lite.internal.core.C4DatabaseObserver;
+						public createQuery(param0: string): com.couchbase.lite.internal.core.C4Query;
+						public getMaxRevTreeDepth(): number;
+						public create(param0: string, param1: com.couchbase.lite.internal.fleece.FLSliceResult, param2: number): com.couchbase.lite.internal.core.C4Document;
+						public static deleteAtPath(param0: string): void;
+						public enumerateChanges(param0: number, param1: number): com.couchbase.lite.internal.core.C4DocEnumerator;
+						public deleteIndex(param0: string): void;
+						public getBySequence(param0: number): com.couchbase.lite.internal.core.C4Document;
+						public encodeJSON(param0: native.Array<number>): com.couchbase.lite.internal.fleece.FLSliceResult;
+						public enumerateAllDocs(param0: number): com.couchbase.lite.internal.core.C4DocEnumerator;
+						public nextDocExpiration(): number;
+						public rekey(param0: number, param1: native.Array<number>): void;
+						public static copy(param0: string, param1: string, param2: number, param3: string, param4: number, param5: number, param6: native.Array<number>): void;
+						public getFLSharedKeys(): com.couchbase.lite.internal.fleece.FLSharedKeys;
+						public getIndexes(): com.couchbase.lite.internal.fleece.FLValue;
+						public createIndex(param0: string, param1: string, param2: number, param3: string, param4: boolean): boolean;
+						public getExpiration(param0: string): number;
+						public rawPut(param0: string, param1: string, param2: string, param3: native.Array<number>): void;
+						public createReplicator(param0: com.couchbase.lite.internal.core.C4Socket, param1: number, param2: number, param3: native.Array<number>, param4: com.couchbase.lite.internal.core.C4ReplicatorListener, param5: any): com.couchbase.lite.internal.core.C4Replicator;
+						public getPrivateUUID(): native.Array<number>;
+						public setExpiration(param0: string, param1: number): void;
+						public constructor(param0: number);
+						public compact(): void;
+						public create(param0: string, param1: native.Array<number>, param2: number): com.couchbase.lite.internal.core.C4Document;
+						public constructor(param0: string, param1: number, param2: string, param3: number, param4: number, param5: native.Array<number>);
+						public getLastSequence(): number;
+						public createDocumentObserver(param0: string, param1: com.couchbase.lite.internal.core.C4DocumentObserverListener, param2: any): com.couchbase.lite.internal.core.C4DocumentObserver;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4DatabaseChange {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4DatabaseChange>;
+						public getSequence(): number;
+						public getBodySize(): number;
+						public constructor();
+						public isExternal(): boolean;
+						public getRevID(): string;
+						public getDocID(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4DatabaseObserver {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4DatabaseObserver>;
+						public getChanges(param0: number): native.Array<com.couchbase.lite.internal.core.C4DatabaseChange>;
+						public free(): void;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4DatabaseObserverListener {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4DatabaseObserverListener>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4DatabaseObserverListener interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							callback(param0: com.couchbase.lite.internal.core.C4DatabaseObserver, param1: any): void;
+						});
+						public constructor();
+						public callback(param0: com.couchbase.lite.internal.core.C4DatabaseObserver, param1: any): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4DocEnumerator {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4DocEnumerator>;
+						public close(): void;
+						public free(): void;
+						public getDocument(): com.couchbase.lite.internal.core.C4Document;
+						public next(): boolean;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Document extends com.couchbase.lite.internal.core.RefCounted {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Document>;
+						public selectNextRevision(): boolean;
+						public isSelectedRevFlags(param0: number): boolean;
+						public getSelectedRevID(): string;
+						public getSelectedBody(): native.Array<number>;
+						public selectFirstPossibleAncestorOf(param0: string): boolean;
+						public getSelectedFlags(): number;
+						public conflicted(): boolean;
+						public getSelectedBody2(): com.couchbase.lite.internal.fleece.FLDict;
+						public deleted(): boolean;
+						public getDocID(): string;
+						public hasRevisionBody(): boolean;
+						public finalize(): void;
+						public exists(): boolean;
+						public selectNextPossibleAncestorOf(param0: string): boolean;
+						public selectCurrentRevision(): boolean;
+						public getFlags(): number;
+						public save(param0: number): void;
+						public getRevID(): string;
+						public resolveConflict(param0: string, param1: string, param2: native.Array<number>, param3: number): void;
+						public bodyAsJSON(param0: boolean): string;
+						public loadRevisionBody(): void;
+						public getSequence(): number;
+						public selectNextLeafRevision(param0: boolean, param1: boolean): void;
+						public getSelectedSequence(): number;
+						public static dictContainsBlobs(param0: com.couchbase.lite.internal.fleece.FLSliceResult, param1: com.couchbase.lite.internal.fleece.FLSharedKeys): boolean;
+						public accessRemoved(): boolean;
+						public update(param0: com.couchbase.lite.internal.fleece.FLSliceResult, param1: number): com.couchbase.lite.internal.core.C4Document;
+						public update(param0: native.Array<number>, param1: number): com.couchbase.lite.internal.core.C4Document;
+						public purgeRevision(param0: string): number;
+						public selectCommonAncestorRevision(param0: string, param1: string): boolean;
+						public selectParentRevision(): boolean;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4DocumentEnded {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4DocumentEnded>;
+						public constructor();
+						public getErrorDomain(): number;
+						public getErrorCode(): number;
+						public errorIsTransient(): boolean;
+						public isConflicted(): boolean;
+						public getFlags(): number;
+						public getErrorInternalInfo(): number;
+						public getC4Error(): com.couchbase.lite.internal.core.C4Error;
+						public getRevID(): string;
+						public getDocID(): string;
+						public toString(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4DocumentObserver {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4DocumentObserver>;
+						public free(): void;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4DocumentObserverListener {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4DocumentObserverListener>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4DocumentObserverListener interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							callback(param0: com.couchbase.lite.internal.core.C4DocumentObserver, param1: string, param2: number, param3: any): void;
+						});
+						public constructor();
+						public callback(param0: com.couchbase.lite.internal.core.C4DocumentObserver, param1: string, param2: number, param3: any): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Error {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Error>;
+						public constructor();
+						public getDomain(): number;
+						public getCode(): number;
+						public getInternalInfo(): number;
+						public constructor(param0: number, param1: number, param2: number);
+						public toString(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4FullTextMatch {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4FullTextMatch>;
+						public term(): number;
+						public start(): number;
+						public length(): number;
+						public property(): number;
+						public dataSource(): number;
+						public toList(): java.util.List<java.lang.Long>;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Key {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Key>;
+						public constructor();
+						public static pbkdf2(param0: string, param1: native.Array<number>, param2: number, param3: number): native.Array<number>;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Listener {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Listener>;
+						public constructor(param0: com.couchbase.lite.internal.core.C4ListenerConfig);
+						public unshareDB(param0: string): boolean;
+						public static getURINameFromPath(param0: string): string;
+						public static getAvailableAPIs(): number;
+						public shareDB(param0: string, param1: com.couchbase.lite.internal.core.C4Database): boolean;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4ListenerAPIs {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4ListenerAPIs>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4ListenerAPIs interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+						});
+						public constructor();
+						public static C4_SYNC_API: number;
+						public static C4_REST_API: number;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4ListenerConfig {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4ListenerConfig>;
+						public constructor();
+						public getPort(): number;
+						public setAllowCreateDBs(param0: boolean): void;
+						public isAllowPush(): boolean;
+						public setAllowPull(param0: boolean): void;
+						public isAllowDeleteDBs(): boolean;
+						public setApis(param0: number): void;
+						public setAllowPush(param0: boolean): void;
+						public toString(): string;
+						public isAllowCreateDBs(): boolean;
+						public constructor(param0: number, param1: number, param2: string, param3: boolean, param4: boolean, param5: boolean, param6: boolean);
+						public getApis(): number;
+						public getDirectory(): string;
+						public isAllowPull(): boolean;
+						public setPort(param0: number): void;
+						public setDirectory(param0: string): void;
+						public setAllowDeleteDBs(param0: boolean): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Log {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Log>;
+						public constructor();
+						public static setLevel(param0: string, param1: number): void;
+						public static setCallbackLevel(param0: number): void;
+						public static getBinaryFileLevel(): number;
+						public static log(param0: string, param1: number, param2: string): void;
+						public static writeToBinaryFile(param0: string, param1: number, param2: number, param3: number, param4: boolean, param5: string): void;
+						public static setBinaryFileLevel(param0: number): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Prediction {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Prediction>;
+						public constructor();
+						public static unregister(param0: string): void;
+						public static register(param0: string, param1: com.couchbase.lite.internal.core.C4PredictiveModel): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4PredictiveModel {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4PredictiveModel>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4PredictiveModel interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							predict(param0: number, param1: number): number;
+						});
+						public constructor();
+						public predict(param0: number, param1: number): number;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Query {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Query>;
+						public getFullTextMatched(param0: com.couchbase.lite.internal.core.C4FullTextMatch): native.Array<number>;
+						public run(param0: com.couchbase.lite.internal.core.C4QueryOptions, param1: com.couchbase.lite.internal.fleece.AllocSlice): com.couchbase.lite.internal.core.C4QueryEnumerator;
+						public free(): void;
+						public columnCount(): number;
+						public explain(): string;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4QueryEnumerator {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4QueryEnumerator>;
+						public getMissingColumns(): number;
+						public getFullTextMatchs(param0: number): com.couchbase.lite.internal.core.C4FullTextMatch;
+						public getFullTextMatchCount(): number;
+						public seek(param0: number): boolean;
+						public close(): void;
+						public getColumns(): com.couchbase.lite.internal.fleece.FLArrayIterator;
+						public refresh(): com.couchbase.lite.internal.core.C4QueryEnumerator;
+						public free(): void;
+						public getRowCount(): number;
+						public next(): boolean;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4QueryOptions {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4QueryOptions>;
+						public constructor();
+						public isRankFullText(): boolean;
+						public setRankFullText(param0: boolean): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4RawDocument {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4RawDocument>;
+						public body(): native.Array<number>;
+						public free(): void;
+						public meta(): string;
+						public key(): string;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4ReplicationFilter {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4ReplicationFilter>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4ReplicationFilter interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							validationFunction(param0: string, param1: number, param2: number, param3: boolean, param4: any): boolean;
+						});
+						public constructor();
+						public validationFunction(param0: string, param1: number, param2: number, param3: boolean, param4: any): boolean;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4Replicator {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Replicator>;
+						public static C4_REPLICATOR_SCHEME_2: string;
+						public static C4_REPLICATOR_TLS_SCHEME_2: string;
+						public static mayBeTransient(param0: com.couchbase.lite.internal.core.C4Error): boolean;
+						public free(): void;
+						public getStatus(): com.couchbase.lite.internal.core.C4ReplicatorStatus;
+						public getResponseHeaders(): native.Array<number>;
+						public stop(): void;
+						public static mayBeNetworkDependent(param0: com.couchbase.lite.internal.core.C4Error): boolean;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4ReplicatorListener {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4ReplicatorListener>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4ReplicatorListener interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							statusChanged(param0: com.couchbase.lite.internal.core.C4Replicator, param1: com.couchbase.lite.internal.core.C4ReplicatorStatus, param2: any): void;
+							documentEnded(param0: com.couchbase.lite.internal.core.C4Replicator, param1: boolean, param2: native.Array<com.couchbase.lite.internal.core.C4DocumentEnded>, param3: any): void;
+						});
+						public constructor();
+						public statusChanged(param0: com.couchbase.lite.internal.core.C4Replicator, param1: com.couchbase.lite.internal.core.C4ReplicatorStatus, param2: any): void;
+						public documentEnded(param0: com.couchbase.lite.internal.core.C4Replicator, param1: boolean, param2: native.Array<com.couchbase.lite.internal.core.C4DocumentEnded>, param3: any): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4ReplicatorMode {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4ReplicatorMode>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4ReplicatorMode interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+						});
+						public constructor();
+						public static C4_DISABLED: number;
+						public static C4_PASSIVE: number;
+						public static C4_ONE_SHOT: number;
+						public static C4_CONTINUOUS: number;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4ReplicatorStatus {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4ReplicatorStatus>;
+						public getProgressDocumentCount(): number;
+						public constructor();
+						public getErrorCode(): number;
+						public constructor(param0: number, param1: number, param2: number, param3: number, param4: number, param5: number, param6: number);
+						public copy(): com.couchbase.lite.internal.core.C4ReplicatorStatus;
+						public getC4Error(): com.couchbase.lite.internal.core.C4Error;
+						public setActivityLevel(param0: number): void;
+						public getProgressUnitsCompleted(): number;
+						public toString(): string;
+						public getProgressUnitsTotal(): number;
+						public getErrorDomain(): number;
+						public constructor(param0: number);
+						public getActivityLevel(): number;
+						public getErrorInternalInfo(): number;
+						public constructor(param0: number, param1: number, param2: number);
+					}
+					export module C4ReplicatorStatus {
+						export class ActivityLevel {
+							public static class: java.lang.Class<com.couchbase.lite.internal.core.C4ReplicatorStatus.ActivityLevel>;
+							public static STOPPED: number;
+							public static OFFLINE: number;
+							public static CONNECTING: number;
+							public static IDLE: number;
+							public static BUSY: number;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export abstract class C4Socket {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4Socket>;
+						public static WEBSOCKET_SCHEME: string;
+						public static WEBSOCKET_SECURE_CONNECTION_SCHEME: string;
+						public static REPLICATOR_OPTION_EXTRA_HEADERS: string;
+						public static REPLICATOR_OPTION_COOKIES: string;
+						public static REPLICATOR_OPTION_AUTHENTICATION: string;
+						public static REPLICATOR_OPTION_PINNED_SERVER_CERT: string;
+						public static REPLICATOR_OPTION_DOC_IDS: string;
+						public static REPLICATOR_OPTION_CHANNELS: string;
+						public static REPLICATOR_OPTION_FILTER: string;
+						public static REPLICATOR_OPTION_FILTER_PARAMS: string;
+						public static REPLICATOR_OPTION_SKIP_DELETED: string;
+						public static REPLICATOR_OPTION_NO_INCOMING_CONFLICTS: string;
+						public static REPLICATOR_OPTION_OUTGOING_CONFLICTS: string;
+						public static REPLICATOR_CHECKPOINT_INTERVAL: string;
+						public static REPLICATOR_OPTION_REMOTE_DB_UNIQUE_ID: string;
+						public static REPLICATOR_HEARTBEAT_INTERVAL: string;
+						public static REPLICATOR_RESET_CHECKPOINT: string;
+						public static REPLICATOR_OPTION_PROGRESS_LEVEL: string;
+						public static REPLICATOR_OPTION_DISABLE_DELTAS: string;
+						public static REPLICATOR_AUTH_TYPE: string;
+						public static REPLICATOR_AUTH_USER_NAME: string;
+						public static REPLICATOR_AUTH_PASSWORD: string;
+						public static REPLICATOR_AUTH_CLIENT_CERT: string;
+						public static AUTH_TYPE_BASIC: string;
+						public static AUTH_TYPE_SESSION: string;
+						public static AUTH_TYPE_OPEN_ID_CONNECT: string;
+						public static AUTH_TYPE_FACEBOOK: string;
+						public static AUTH_TYPE_CLIENT_CERT: string;
+						public static SOCKET_OPTION_WS_PROTOCOLS: string;
+						public static SOCKET_OPTION_HEATBEAT: string;
+						public static REPLICATOR_OPTION_NO_CONFLICTS: string;
+						public static WEB_SOCKET_CLIENT_FRAMING: number;
+						public static NO_FRAMING: number;
+						public static WEB_SOCKET_SERVER_FRAMING: number;
+						public static REVERSE_LOOKUP_TABLE: java.util.Map<java.lang.Long,com.couchbase.lite.internal.core.C4Socket>;
+						public static SOCKET_FACTORY: java.util.Map<any,java.lang.Class>;
+						public static SOCKET_FACTORY_CONTEXT: java.util.Map<any,com.couchbase.lite.Replicator>;
+						public handle: number;
+						public nativeHandle: any;
+						public constructor();
+						public static gotHTTPResponse(param0: number, param1: number, param2: native.Array<number>): void;
+						public static closeRequested(param0: number, param1: number, param2: string): void;
+						public close(): void;
+						public static received(param0: number, param1: native.Array<number>): void;
+						public gotHTTPResponse(param0: number, param1: native.Array<number>): void;
+						public static completedWrite(param0: number, param1: number): void;
+						public static opened(param0: number): void;
+						public requestClose(param0: number, param1: string): void;
+						public completedWrite(param0: number): void;
+						public static closed(param0: number, param1: number, param2: number, param3: string): void;
+						public static fromNative(param0: any, param1: string, param2: string, param3: number, param4: string, param5: number): number;
+						public constructor(param0: number);
+						public setHandle(param0: number): void;
 						public completedReceive(param0: number): void;
 						public send(param0: native.Array<number>): void;
 					}
-					export module CBLWebSocket {
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class C4WebSocketCloseCode {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.C4WebSocketCloseCode>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.core.C4WebSocketCloseCode interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+						});
+						public constructor();
+						public static kWebSocketCloseBadMessageFormat: number;
+						public static kWebSocketCloseUserPermanent: number;
+						public static kWebSocketCloseNoCode: number;
+						public static kWebSocketCloseAbnormal: number;
+						public static kWebSocketCloseMissingExtension: number;
+						public static kWebSocketCloseTLSFailure: number;
+						public static kWebSocketCloseGoingAway: number;
+						public static kWebSocketCloseNormal: number;
+						public static kWebSocketClosePolicyError: number;
+						public static kWebSocketCloseFirstAvailable: number;
+						public static kWebSocketCloseCantFulfill: number;
+						public static kWebSocketCloseProtocolError: number;
+						public static kWebSocketCloseUserTransient: number;
+						public static kWebSocketCloseDataError: number;
+						public static kWebSocketCloseMessageTooBig: number;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class CBLVersion {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.CBLVersion>;
+						public constructor();
+						public static getSysInfo(): string;
+						public static getVersionInfo(): string;
+						public static getLibInfo(): string;
+						public static getUserAgent(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export abstract class RefCounted {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.RefCounted>;
+						public retain(): void;
+						public release(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module core {
+					export class SharedKeys {
+						public static class: java.lang.Class<com.couchbase.lite.internal.core.SharedKeys>;
+						public constructor(param0: com.couchbase.lite.internal.core.C4Database);
+						public getFLSharedKeys(): com.couchbase.lite.internal.fleece.FLSharedKeys;
+						public constructor(param0: com.couchbase.lite.internal.fleece.FLSharedKeys);
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class AllocSlice {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.AllocSlice>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.fleece.AllocSlice interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							getHandle(): number;
+							getBuf(): native.Array<number>;
+							getSize(): number;
+							free(): void;
+						});
+						public constructor();
+						public getSize(): number;
+						public free(): void;
+						public getBuf(): native.Array<number>;
+						public getHandle(): number;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class Encodable {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.Encodable>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.fleece.Encodable interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+						});
+						public constructor();
+						public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLArray {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLArray>;
+						public count(): number;
+						public get(param0: number): com.couchbase.lite.internal.fleece.FLValue;
+						public constructor(param0: number);
+						public asArray(): java.util.List<any>;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLArrayIterator {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLArrayIterator>;
+						public constructor();
+						public begin(param0: com.couchbase.lite.internal.fleece.FLArray): void;
+						public constructor(param0: number);
+						public getValue(): com.couchbase.lite.internal.fleece.FLValue;
+						public free(): void;
+						public next(): boolean;
+						public getValueAt(param0: number): com.couchbase.lite.internal.fleece.FLValue;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLConstants {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLConstants>;
+					}
+					export module FLConstants {
+						export class Error {
+							public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLConstants.Error>;
+							public static NO_ERROR: number;
+							public static MEMORY_ERROR: number;
+							public static OUT_OF_RANGE: number;
+							public static INVALID_DATA: number;
+							public static ENCODE_ERROR: number;
+							public static JSON_ERROR: number;
+							public static UNKNOWN_VALUE: number;
+							public static INTERNAL_ERROR: number;
+							public static NOT_FOUND: number;
+						}
+						export class ValueType {
+							public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLConstants.ValueType>;
+							public static UNDEFINED: number;
+							public static NULL: number;
+							public static BOOLEAN: number;
+							public static NUMBER: number;
+							public static STRING: number;
+							public static DATA: number;
+							public static ARRAY: number;
+							public static DICT: number;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLDict {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLDict>;
+						public asDict(): java.util.Map<string,any>;
+						public count(): number;
+						public toFLValue(): com.couchbase.lite.internal.fleece.FLValue;
+						public constructor(param0: number);
+						public get(param0: string): com.couchbase.lite.internal.fleece.FLValue;
+						public getHandle(): number;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLDictIterator {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLDictIterator>;
+						public constructor();
+						public begin(param0: com.couchbase.lite.internal.fleece.FLDict): void;
+						public getValue(): com.couchbase.lite.internal.fleece.FLValue;
+						public free(): void;
+						public getCount(): number;
+						public next(): boolean;
+						public getKeyString(): string;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLEncodable {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLEncodable>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.internal.fleece.FLEncodable interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+						});
+						public constructor();
+						public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLEncoder {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLEncoder>;
+						public constructor();
+						public writeKey(param0: string): boolean;
+						public managed(): com.couchbase.lite.internal.fleece.FLEncoder;
+						public beginArray(param0: number): boolean;
+						public finish(): native.Array<number>;
+						public getExtraInfo(): any;
+						public writeString(param0: string): boolean;
+						public writeData(param0: native.Array<number>): boolean;
+						public endArray(): boolean;
+						public write(param0: java.util.List): boolean;
+						public finalize(): void;
+						public endDict(): boolean;
+						public setExtraInfo(param0: any): void;
+						public constructor(param0: number);
+						public free(): void;
+						public beginDict(param0: number): boolean;
+						public finish2(): com.couchbase.lite.internal.fleece.FLSliceResult;
+						public writeValue(param0: any): boolean;
+						public writeNull(): boolean;
+						public write(param0: java.util.Map<string,any>): boolean;
+						public reset(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLSharedKeys {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLSharedKeys>;
+						public constructor(param0: number);
+						public getHandle(): number;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLSliceResult extends com.couchbase.lite.internal.fleece.AllocSlice {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLSliceResult>;
+						public constructor();
+						public constructor(param0: native.Array<number>);
+						public getSize(): number;
+						public managed(): com.couchbase.lite.internal.fleece.FLSliceResult;
+						public constructor(param0: number);
+						public free(): void;
+						public getBuf(): native.Array<number>;
+						public getHandle(): number;
+						public finalize(): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class FLValue {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.FLValue>;
+						public asBool(): boolean;
+						public static fromData(param0: com.couchbase.lite.internal.fleece.AllocSlice): com.couchbase.lite.internal.fleece.FLValue;
+						public isInteger(): boolean;
+						public static fromData(param0: native.Array<number>): com.couchbase.lite.internal.fleece.FLValue;
+						public asObject(): any;
+						public asInt(): number;
+						public static json5ToJson(param0: string): string;
+						public asDict(): java.util.Map<string,any>;
+						public static toObject(param0: com.couchbase.lite.internal.fleece.FLValue): any;
+						public getType(): number;
+						public isUnsigned(): boolean;
+						public toStr(): string;
+						public isNumber(): boolean;
+						public asFLDict(): com.couchbase.lite.internal.fleece.FLDict;
+						public constructor(param0: number);
+						public asDouble(): number;
+						public asString(): string;
+						public asFLArray(): com.couchbase.lite.internal.fleece.FLArray;
+						public asArray(): java.util.List<any>;
+						public asData(): native.Array<number>;
+						public toJSON5(): string;
+						public asUnsigned(): number;
+						public asFloat(): number;
+						public isDouble(): boolean;
+						public toJSON(): string;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class MArray extends com.couchbase.lite.internal.fleece.MCollection {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.MArray>;
+						public initAsCopyOf(param0: com.couchbase.lite.internal.fleece.MCollection, param1: boolean): void;
+						public getBaseArray(): com.couchbase.lite.internal.fleece.FLArray;
+						public clear(): boolean;
+						public constructor();
+						public count(): number;
+						public set(param0: number, param1: any): boolean;
+						public remove(param0: number, param1: number): boolean;
+						public insert(param0: number, param1: any): boolean;
+						public initInSlot(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection, param2: boolean): void;
+						public append(param0: any): boolean;
+						public get(param0: number): com.couchbase.lite.internal.fleece.MValue;
+						public initAsCopyOf(param0: com.couchbase.lite.internal.fleece.MArray, param1: boolean): void;
+						public constructor(param0: com.couchbase.lite.internal.fleece.MContext, param1: boolean);
+						public initInSlot(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection): void;
+						public remove(param0: number): boolean;
+						public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export abstract class MCollection extends com.couchbase.lite.internal.fleece.Encodable {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.MCollection>;
+						public initAsCopyOf(param0: com.couchbase.lite.internal.fleece.MCollection, param1: boolean): void;
+						public mutate(): void;
+						public constructor();
+						public initInSlot(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection, param2: boolean): void;
+						public setSlot(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MValue): void;
+						public getContext(): com.couchbase.lite.internal.fleece.MContext;
+						public isMutated(): boolean;
+						public hasMutableChildren(): boolean;
+						public isMutable(): boolean;
+						public constructor(param0: com.couchbase.lite.internal.fleece.MContext, param1: boolean);
+						public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class MContext {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.MContext>;
+						public static NULL: com.couchbase.lite.internal.fleece.MContext;
+						public constructor();
+						public constructor(param0: com.couchbase.lite.internal.fleece.AllocSlice);
+						public getData(): com.couchbase.lite.internal.fleece.AllocSlice;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class MDict extends com.couchbase.lite.internal.fleece.MCollection implements java.lang.Iterable<string>  {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.MDict>;
+						public initAsCopyOf(param0: com.couchbase.lite.internal.fleece.MCollection, param1: boolean): void;
+						public clear(): boolean;
+						public constructor();
+						public count(): number;
+						public remove(param0: string): boolean;
+						public getKeys(): java.util.List<string>;
+						public initAsCopyOf(param0: com.couchbase.lite.internal.fleece.MDict, param1: boolean): void;
+						public initInSlot(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection, param2: boolean): void;
+						public set(param0: string, param1: com.couchbase.lite.internal.fleece.MValue): boolean;
+						public contains(param0: string): boolean;
+						public iterator(): java.util.Iterator<string>;
+						public constructor(param0: com.couchbase.lite.internal.fleece.MContext, param1: boolean);
+						public initInSlot(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection): void;
+						public get(param0: string): com.couchbase.lite.internal.fleece.MValue;
+						public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class MRoot extends com.couchbase.lite.internal.fleece.MCollection {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.MRoot>;
+						public encode(): com.couchbase.lite.internal.fleece.AllocSlice;
+						public constructor();
+						public constructor(param0: com.couchbase.lite.internal.fleece.AllocSlice, param1: boolean);
+						public constructor(param0: com.couchbase.lite.internal.fleece.MContext, param1: com.couchbase.lite.internal.fleece.FLValue, param2: boolean);
+						public constructor(param0: com.couchbase.lite.internal.fleece.AllocSlice);
+						public asNative(): any;
+						public isMutated(): boolean;
+						public constructor(param0: com.couchbase.lite.internal.fleece.MContext, param1: boolean);
+						public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module fleece {
+					export class MValue extends com.couchbase.lite.internal.fleece.Encodable {
+						public static class: java.lang.Class<com.couchbase.lite.internal.fleece.MValue>;
+						public static EMPTY: com.couchbase.lite.internal.fleece.MValue;
+						public asNative(param0: com.couchbase.lite.internal.fleece.MCollection): any;
+						public mutate(): void;
+						public static registerDelegate(param0: com.couchbase.lite.internal.fleece.MValue.Delegate): void;
+						public getValue(): com.couchbase.lite.internal.fleece.FLValue;
+						public isEmpty(): boolean;
+						public constructor(param0: boolean);
+						public constructor(param0: any);
+						public isMutated(): boolean;
+						public constructor(param0: com.couchbase.lite.internal.fleece.FLValue);
+						public static getRegisteredDelegate(): com.couchbase.lite.internal.fleece.MValue.Delegate;
+						public finalize(): void;
+						public encodeTo(param0: com.couchbase.lite.internal.fleece.FLEncoder): void;
+					}
+					export module MValue {
+						export class Delegate {
+							public static class: java.lang.Class<com.couchbase.lite.internal.fleece.MValue.Delegate>;
+							/**
+							 * Constructs a new instance of the com.couchbase.lite.internal.fleece.MValue$Delegate interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+							 */
+							public constructor(implementation: {
+								toNative(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection, param2: java.util.concurrent.atomic.AtomicBoolean): any;
+								collectionFromNative(param0: any): com.couchbase.lite.internal.fleece.MCollection;
+								encodeNative(param0: com.couchbase.lite.internal.fleece.FLEncoder, param1: any): void;
+							});
+							public constructor();
+							public encodeNative(param0: com.couchbase.lite.internal.fleece.FLEncoder, param1: any): void;
+							public collectionFromNative(param0: any): com.couchbase.lite.internal.fleece.MCollection;
+							public toNative(param0: com.couchbase.lite.internal.fleece.MValue, param1: com.couchbase.lite.internal.fleece.MCollection, param2: java.util.concurrent.atomic.AtomicBoolean): any;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module replicator {
+					export class AbstractCBLWebSocket extends com.couchbase.lite.internal.core.C4Socket {
+						public static class: java.lang.Class<com.couchbase.lite.internal.replicator.AbstractCBLWebSocket>;
+						public requestClose(param0: number, param1: string): void;
+						public constructor();
+						public handleClose(param0: java.lang.Throwable): boolean;
+						public static socket_open(param0: number, param1: any, param2: string, param3: string, param4: number, param5: string, param6: native.Array<number>): void;
+						public close(): void;
+						public constructor(param0: number);
+						public constructor(param0: number, param1: string, param2: string, param3: number, param4: string, param5: java.util.Map<string,any>);
+						public completedReceive(param0: number): void;
+						public send(param0: native.Array<number>): void;
+					}
+					export module AbstractCBLWebSocket {
 						export class CBLWebSocketListener {
-							public static class: java.lang.Class<com.couchbase.lite.internal.replicator.CBLWebSocket.CBLWebSocketListener>;
+							public static class: java.lang.Class<com.couchbase.lite.internal.replicator.AbstractCBLWebSocket.CBLWebSocketListener>;
 							public onMessage(param0: okhttp3.WebSocket, param1: okio.ByteString): void;
 							public onOpen(param0: okhttp3.WebSocket, param1: okhttp3.Response): void;
 							public onMessage(param0: okhttp3.WebSocket, param1: string): void;
@@ -2429,6 +4415,34 @@ declare module com {
 							public onClosing(param0: okhttp3.WebSocket, param1: number, param2: string): void;
 							public onClosed(param0: okhttp3.WebSocket, param1: number, param2: string): void;
 						}
+						export class TLSSocketFactory {
+							public static class: java.lang.Class<com.couchbase.lite.internal.replicator.AbstractCBLWebSocket.TLSSocketFactory>;
+							public createSocket(param0: java.net.InetAddress, param1: number): java.net.Socket;
+							public createSocket(param0: java.net.InetAddress, param1: number, param2: java.net.InetAddress, param3: number): java.net.Socket;
+							public createSocket(param0: java.net.Socket, param1: string, param2: number, param3: boolean): java.net.Socket;
+							public getSupportedCipherSuites(): native.Array<string>;
+							public createSocket(param0: string, param1: number, param2: java.net.InetAddress, param3: number): java.net.Socket;
+							public getDefaultCipherSuites(): native.Array<string>;
+							public createSocket(param0: string, param1: number): java.net.Socket;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module replicator {
+					export class CBLWebSocket extends com.couchbase.lite.internal.replicator.AbstractCBLWebSocket {
+						public static class: java.lang.Class<com.couchbase.lite.internal.replicator.CBLWebSocket>;
+						public constructor();
+						public handleClose(param0: java.lang.Throwable): boolean;
+						public constructor(param0: number);
+						public constructor(param0: number, param1: string, param2: string, param3: number, param4: string, param5: java.util.Map<string,any>);
 					}
 				}
 			}
@@ -2443,36 +4457,36 @@ declare module com {
 				export module support {
 					export class Log {
 						public static class: java.lang.Class<com.couchbase.lite.internal.support.Log>;
-						public static DATABASE: string;
-						public static QUERY: string;
-						public static SYNC: string;
-						public static WEB_SOCKET: string;
-						public static DEBUG: number;
-						public static VERBOSE: number;
-						public static INFO: number;
-						public static WARN: number;
-						public static ERROR: number;
-						public static NONE: number;
-						public static v(param0: string, param1: string): void;
-						public static w(param0: string, param1: string): void;
-						public static info(param0: string, param1: string, param2: java.lang.Throwable): void;
-						public static info(param0: string, param1: string): void;
-						public static w(param0: string, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
-						public static v(param0: string, param1: string, param2: native.Array<any>): void;
-						public static v(param0: string, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
-						public static e(param0: string, param1: string): void;
-						public static i(param0: string, param1: string, param2: java.lang.Throwable): void;
-						public static w(param0: string, param1: java.lang.Throwable): void;
-						public static i(param0: string, param1: string): void;
-						public static i(param0: string, param1: string, param2: native.Array<any>): void;
-						public static w(param0: string, param1: string, param2: java.lang.Throwable): void;
+						public static C4LOG_DEBUG: number;
+						public static C4LOG_VERBOSE: number;
+						public static C4LOG_INFO: number;
+						public static C4LOG_WARN: number;
+						public static C4LOG_ERROR: number;
+						public static C4LOG_NONE: number;
+						public static w(param0: com.couchbase.lite.LogDomain, param1: string): void;
+						public static w(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
+						public static i(param0: com.couchbase.lite.LogDomain, param1: string, param2: native.Array<any>): void;
+						public static info(param0: com.couchbase.lite.LogDomain, param1: string): void;
+						public static v(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
+						public static e(param0: com.couchbase.lite.LogDomain, param1: string): void;
+						public static e(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
+						public static v(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable): void;
 						public static setLogLevel(param0: com.couchbase.lite.LogDomain, param1: com.couchbase.lite.LogLevel): void;
-						public static e(param0: string, param1: string, param2: native.Array<any>): void;
-						public static i(param0: string, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
-						public static w(param0: string, param1: string, param2: native.Array<any>): void;
-						public static e(param0: string, param1: string, param2: java.lang.Throwable): void;
-						public static e(param0: string, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
-						public static v(param0: string, param1: string, param2: java.lang.Throwable): void;
+						public static i(param0: com.couchbase.lite.LogDomain, param1: string): void;
+						public static d(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable): void;
+						public static w(param0: com.couchbase.lite.LogDomain, param1: java.lang.Throwable): void;
+						public static e(param0: com.couchbase.lite.LogDomain, param1: string, param2: native.Array<any>): void;
+						public static v(param0: com.couchbase.lite.LogDomain, param1: string): void;
+						public static w(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable): void;
+						public static info(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable): void;
+						public static i(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable): void;
+						public static w(param0: com.couchbase.lite.LogDomain, param1: string, param2: native.Array<any>): void;
+						public static v(param0: com.couchbase.lite.LogDomain, param1: string, param2: native.Array<any>): void;
+						public static d(param0: com.couchbase.lite.LogDomain, param1: string): void;
+						public static d(param0: com.couchbase.lite.LogDomain, param1: string, param2: native.Array<any>): void;
+						public static i(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
+						public static e(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable): void;
+						public static d(param0: com.couchbase.lite.LogDomain, param1: string, param2: java.lang.Throwable, param3: native.Array<any>): void;
 						public static enableLogging(param0: string, param1: number): void;
 					}
 				}
@@ -2486,8 +4500,10 @@ declare module com {
 		export module lite {
 			export module internal {
 				export module support {
-					export class Logger {
-						public static class: java.lang.Class<com.couchbase.lite.internal.support.Logger>;
+					export class Run {
+						public static class: java.lang.Class<com.couchbase.lite.internal.support.Run>;
+						public constructor();
+						public static once(param0: string, param1: java.lang.Runnable): void;
 					}
 				}
 			}
@@ -2531,37 +4547,6 @@ declare module com {
 		export module lite {
 			export module internal {
 				export module utils {
-					export class ExecutorUtils {
-						public static class: java.lang.Class<com.couchbase.lite.internal.utils.ExecutorUtils>;
-						public static shutdownAndAwaitTermination(param0: java.util.concurrent.ExecutorService, param1: number): void;
-					}
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module lite {
-			export module internal {
-				export module utils {
-					export class FileUtils {
-						public static class: java.lang.Class<com.couchbase.lite.internal.utils.FileUtils>;
-						public static deleteRecursive(param0: string): boolean;
-						public static deleteRecursive(param0: java.io.File): boolean;
-					}
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module lite {
-			export module internal {
-				export module utils {
 					export class JsonUtils {
 						public static class: java.lang.Class<com.couchbase.lite.internal.utils.JsonUtils>;
 						public static fromJson(param0: org.json.JSONArray): java.util.List<any>;
@@ -2580,9 +4565,26 @@ declare module com {
 		export module lite {
 			export module internal {
 				export module utils {
+					export class Preconditions {
+						public static class: java.lang.Class<com.couchbase.lite.internal.utils.Preconditions>;
+						public static checkArgNotNull(param0: any, param1: string): void;
+						public static testArg(param0: any, param1: string, param2: com.couchbase.lite.utils.Fn.Predicate<any>): void;
+					}
+				}
+			}
+		}
+	}
+}
+
+declare module com {
+	export module couchbase {
+		export module lite {
+			export module internal {
+				export module utils {
 					export class StringUtils {
 						public static class: java.lang.Class<com.couchbase.lite.internal.utils.StringUtils>;
 						public static stringByDeletingLastPathComponent(param0: string): string;
+						public static isEmpty(param0: string): boolean;
 						public static lastPathComponent(param0: string): string;
 					}
 				}
@@ -2593,14 +4595,17 @@ declare module com {
 
 declare module com {
 	export module couchbase {
-		export module litecore {
-			export class C4 {
-				public static class: java.lang.Class<com.couchbase.litecore.C4>;
-				public static getBuildInfo(): string;
-				public static getenv(param0: string): string;
-				public static getVersion(): string;
-				public static setenv(param0: string, param1: string, param2: number): void;
-				public constructor();
+		export module lite {
+			export module utils {
+				export class FileUtils {
+					public static class: java.lang.Class<com.couchbase.lite.utils.FileUtils>;
+					public static cleanDirectory(param0: java.io.File): boolean;
+					public static deleteRecursive(param0: string): boolean;
+					public constructor();
+					public static removeItemIfExists(param0: string): boolean;
+					public static deleteRecursive(param0: java.io.File): boolean;
+					public static setPermissionRecursive(param0: java.io.File, param1: boolean, param2: boolean): boolean;
+				}
 			}
 		}
 	}
@@ -2608,1380 +4613,61 @@ declare module com {
 
 declare module com {
 	export module couchbase {
-		export module litecore {
-			export class C4Base {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Base>;
-				public static getMessage(param0: number, param1: number, param2: number): string;
-				public constructor();
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4BlobKey {
-				public static class: java.lang.Class<com.couchbase.litecore.C4BlobKey>;
-				public finalize(): void;
-				public toString(): string;
-				public constructor(param0: string);
-				public free(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4BlobReadStream {
-				public static class: java.lang.Class<com.couchbase.litecore.C4BlobReadStream>;
-				public close(): void;
-				public read(param0: number): native.Array<number>;
-				public finalize(): void;
-				public seek(param0: number): void;
-				public getLength(): number;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4BlobStore {
-				public static class: java.lang.Class<com.couchbase.litecore.C4BlobStore>;
-				public openWriteStream(): com.couchbase.litecore.C4BlobWriteStream;
-				public getFilePath(param0: com.couchbase.litecore.C4BlobKey): string;
-				public delete(): void;
-				public getContents(param0: com.couchbase.litecore.C4BlobKey): com.couchbase.litecore.fleece.FLSliceResult;
-				public delete(param0: com.couchbase.litecore.C4BlobKey): void;
-				public finalize(): void;
-				public getSize(param0: com.couchbase.litecore.C4BlobKey): number;
-				public create(param0: native.Array<number>): com.couchbase.litecore.C4BlobKey;
-				public static open(param0: string, param1: number): com.couchbase.litecore.C4BlobStore;
-				public free(): void;
-				public openReadStream(param0: com.couchbase.litecore.C4BlobKey): com.couchbase.litecore.C4BlobReadStream;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4BlobWriteStream {
-				public static class: java.lang.Class<com.couchbase.litecore.C4BlobWriteStream>;
-				public computeBlobKey(): com.couchbase.litecore.C4BlobKey;
-				public close(): void;
-				public install(): void;
-				public write(param0: native.Array<number>): void;
-				public finalize(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Constants {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Constants>;
-				/**
-				 * Constructs a new instance of the com.couchbase.litecore.C4Constants interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-				});
-				public constructor();
-			}
-			export module C4Constants {
-				export class C4DatabaseFlags {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4DatabaseFlags>;
+		export module lite {
+			export module utils {
+				export class Fn {
+					public static class: java.lang.Class<com.couchbase.lite.utils.Fn>;
 					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4DatabaseFlags interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+					 * Constructs a new instance of the com.couchbase.lite.utils.Fn interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 					 */
 					public constructor(implementation: {
 					});
 					public constructor();
-					public static kC4DB_Create: number;
-					public static kC4DB_AutoCompact: number;
-					public static kC4DB_ReadOnly: number;
-					public static kC4DB_SharedKeys: number;
-					public static kC4DB_NonObservable: number;
-					public static kC4DB_NoUpgrade: number;
 				}
-				export class C4DocumentFlags {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4DocumentFlags>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4DocumentFlags interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kDocExists: number;
-					public static kDocHasAttachments: number;
-					public static kDocDeleted: number;
-					public static kDocConflicted: number;
-				}
-				export class C4DocumentVersioning {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4DocumentVersioning>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4DocumentVersioning interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4RevisionTrees: number;
-					public static kC4VersionVectors: number;
-				}
-				export class C4EncryptionAlgorithm {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4EncryptionAlgorithm>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4EncryptionAlgorithm interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4EncryptionAES256: number;
-					public static kC4EncryptionNone: number;
-				}
-				export class C4EncryptionKeySize {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4EncryptionKeySize>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4EncryptionKeySize interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4EncryptionKeySizeAES256: number;
-				}
-				export class C4EnumeratorFlags {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4EnumeratorFlags>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4EnumeratorFlags interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4Descending: number;
-					public static kC4IncludeNonConflicted: number;
-					public static kC4Default: number;
-					public static kC4IncludeDeleted: number;
-					public static kC4IncludeBodies: number;
-				}
-				export class C4ErrorDomain {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4ErrorDomain>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4ErrorDomain interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static SQLiteDomain: number;
-					public static NetworkDomain: number;
-					public static kC4MaxErrorDomainPlus1: number;
-					public static POSIXDomain: number;
-					public static WebSocketDomain: number;
-					public static LiteCoreDomain: number;
-					public static FleeceDomain: number;
-				}
-				export class C4IndexType {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4IndexType>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4IndexType interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4GeoIndex: number;
-					public static kC4FullTextIndex: number;
-					public static kC4ValueIndex: number;
-				}
-				export class C4LogDomain {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4LogDomain>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4LogDomain interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static Query: string;
-					public static Database: string;
-					public static Sync: string;
-					public static WebSocket: string;
-					public static SyncBusy: string;
-					public static BLIP: string;
-				}
-				export class C4LogLevel {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4LogLevel>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4LogLevel interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4LogDebug: number;
-					public static kC4LogInfo: number;
-					public static kC4LogNone: number;
-					public static kC4LogWarning: number;
-					public static kC4LogVerbose: number;
-					public static kC4LogError: number;
-				}
-				export class C4RevisionFlags {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.C4RevisionFlags>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$C4RevisionFlags interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kRevKeepBody: number;
-					public static kRevDeleted: number;
-					public static kRevHasAttachments: number;
-					public static kRevLeaf: number;
-					public static kRevNew: number;
-					public static kRevIsConflict: number;
-				}
-				export class LiteCoreError {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.LiteCoreError>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$LiteCoreError interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4ErrorMissingIndex: number;
-					public static kC4ErrorNotFound: number;
-					public static kC4ErrorInvalidQueryParam: number;
-					public static kC4ErrorInvalidParameter: number;
-					public static kC4ErrorUnsupported: number;
-					public static kC4ErrorInvalidQuery: number;
-					public static kC4ErrorMemoryError: number;
-					public static kC4ErrorRemoteError: number;
-					public static kC4ErrorNotInTransaction: number;
-					public static kC4ErrorBusy: number;
-					public static kC4ErrorConflict: number;
-					public static kC4NumErrorCodesPlus1: number;
-					public static kC4ErrorBadRevisionID: number;
-					public static kC4ErrorUnimplemented: number;
-					public static kC4ErrorUnexpectedError: number;
-					public static kC4ErrorCantUpgradeDatabase: number;
-					public static kC4ErrorCrypto: number;
-					public static kC4ErrorUnsupportedEncryption: number;
-					public static kC4ErrorIOError: number;
-					public static kC4ErrorCorruptData: number;
-					public static kC4ErrorWrongFormat: number;
-					public static kC4ErrorCorruptRevisionData: number;
-					public static kC4ErrorNotOpen: number;
-					public static kC4ErrorTransactionNotClosed: number;
-					public static kC4ErrorNotWriteable: number;
-					public static kC4ErrorCantOpenFile: number;
-					public static kC4ErrorBadDocID: number;
-					public static kC4ErrorDatabaseTooNew: number;
-					public static kC4ErrorNotADatabaseFile: number;
-					public static kC4ErrorAssertionFailed: number;
-					public static kC4ErrorDatabaseTooOld: number;
-				}
-				export class NetworkError {
-					public static class: java.lang.Class<com.couchbase.litecore.C4Constants.NetworkError>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4Constants$NetworkError interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4NetErrDNSFailure: number;
-					public static kC4NetErrTimeout: number;
-					public static kC4NetErrTooManyRedirects: number;
-					public static kC4NetErrTLSHandshakeFailed: number;
-					public static kC4NetErrUnknownHost: number;
-					public static kC4NetErrTLSClientCertRequired: number;
-					public static kC4NetErrInvalidRedirect: number;
-					public static kC4NetErrInvalidURL: number;
-					public static kC4NetErrTLSCertUnknownRoot: number;
-					public static kC4NetErrTLSClientCertRejected: number;
-					public static kC4NetErrTLSCertExpired: number;
-					public static kC4NetErrTLSCertUntrusted: number;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Database extends com.couchbase.litecore.C4Constants {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Database>;
-				public beginTransaction(): void;
-				public endTransaction(param0: boolean): void;
-				public create(param0: string, param1: native.Array<number>, param2: number): com.couchbase.litecore.C4Document;
-				public constructor(param0: string, param1: number, param2: string, param3: number, param4: number, param5: native.Array<number>);
-				public get(param0: string, param1: boolean): com.couchbase.litecore.C4Document;
-				public getPrivateUUID(): native.Array<number>;
-				public finalize(): void;
-				public getDocumentCount(): number;
-				public createFleeceEncoder(): com.couchbase.litecore.fleece.FLEncoder;
-				public getMaxRevTreeDepth(): number;
-				public compact(): void;
-				public getLastSequence(): number;
-				public put(param0: com.couchbase.litecore.fleece.FLSliceResult, param1: string, param2: number, param3: boolean, param4: boolean, param5: native.Array<string>, param6: boolean, param7: number, param8: number): com.couchbase.litecore.C4Document;
-				public createDatabaseObserver(param0: com.couchbase.litecore.C4DatabaseObserverListener, param1: any): com.couchbase.litecore.C4DatabaseObserver;
-				public delete(): void;
-				public rawGet(param0: string, param1: string): com.couchbase.litecore.C4RawDocument;
-				public enumerateAllDocs(param0: number): com.couchbase.litecore.C4DocEnumerator;
-				public getFLSharedKeys(): com.couchbase.litecore.fleece.FLSharedKeys;
-				public getExpiration(param0: string): number;
-				public nextDocExpiration(): number;
-				public rawPut(param0: string, param1: string, param2: string, param3: string): void;
-				public encodeJSON(param0: native.Array<number>): com.couchbase.litecore.fleece.FLSliceResult;
-				public createReplicator(param0: com.couchbase.litecore.C4Socket, param1: number, param2: number, param3: native.Array<number>, param4: com.couchbase.litecore.C4ReplicatorListener, param5: any): com.couchbase.litecore.C4Replicator;
-				public setMaxRevTreeDepth(param0: number): void;
-				public close(): void;
-				public setExpiration(param0: string, param1: number): void;
-				public getBlobStore(): com.couchbase.litecore.C4BlobStore;
-				public createReplicator(param0: string, param1: string, param2: number, param3: string, param4: string, param5: com.couchbase.litecore.C4Database, param6: number, param7: number, param8: native.Array<number>, param9: com.couchbase.litecore.C4ReplicatorListener, param10: any, param11: number, param12: number): com.couchbase.litecore.C4Replicator;
-				public free(): boolean;
-				public static deleteAtPath(param0: string): void;
-				public createQuery(param0: string): com.couchbase.litecore.C4Query;
-				public getPath(): string;
-				public createDocumentObserver(param0: string, param1: com.couchbase.litecore.C4DocumentObserverListener, param2: any): com.couchbase.litecore.C4DocumentObserver;
-				public getIndexes(): com.couchbase.litecore.fleece.FLValue;
-				public isInTransaction(): boolean;
-				public rekey(param0: number, param1: native.Array<number>): void;
-				public getPublicUUID(): native.Array<number>;
-				public static copy(param0: string, param1: string, param2: number, param3: string, param4: number, param5: number, param6: native.Array<number>): void;
-				public put(param0: native.Array<number>, param1: string, param2: number, param3: boolean, param4: boolean, param5: native.Array<string>, param6: boolean, param7: number, param8: number): com.couchbase.litecore.C4Document;
-				public create(param0: string, param1: com.couchbase.litecore.fleece.FLSliceResult, param2: number): com.couchbase.litecore.C4Document;
-				public enumerateChanges(param0: number, param1: number): com.couchbase.litecore.C4DocEnumerator;
-				public deleteIndex(param0: string): void;
-				public createIndex(param0: string, param1: string, param2: number, param3: string, param4: boolean): boolean;
-				public getBySequence(param0: number): com.couchbase.litecore.C4Document;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4DatabaseChange {
-				public static class: java.lang.Class<com.couchbase.litecore.C4DatabaseChange>;
-				public isExternal(): boolean;
-				public getBodySize(): number;
-				public getSequence(): number;
-				public getRevID(): string;
-				public constructor();
-				public getDocID(): string;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4DatabaseObserver {
-				public static class: java.lang.Class<com.couchbase.litecore.C4DatabaseObserver>;
-				public finalize(): void;
-				public free(): void;
-				public getChanges(param0: number): native.Array<com.couchbase.litecore.C4DatabaseChange>;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4DatabaseObserverListener {
-				public static class: java.lang.Class<com.couchbase.litecore.C4DatabaseObserverListener>;
-				/**
-				 * Constructs a new instance of the com.couchbase.litecore.C4DatabaseObserverListener interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-					callback(param0: com.couchbase.litecore.C4DatabaseObserver, param1: any): void;
-				});
-				public constructor();
-				public callback(param0: com.couchbase.litecore.C4DatabaseObserver, param1: any): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4DocEnumerator extends com.couchbase.litecore.C4Constants {
-				public static class: java.lang.Class<com.couchbase.litecore.C4DocEnumerator>;
-				public getDocument(): com.couchbase.litecore.C4Document;
-				public close(): void;
-				public next(): boolean;
-				public finalize(): void;
-				public free(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Document extends com.couchbase.litecore.RefCounted implements com.couchbase.litecore.C4Constants {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Document>;
-				public getSelectedFlags(): number;
-				public hasRevisionBody(): boolean;
-				public getSequence(): number;
-				public bodyAsJSON(param0: boolean): string;
-				public finalize(): void;
-				public selectCurrentRevision(): boolean;
-				public selectParentRevision(): boolean;
-				public resolveConflict(param0: string, param1: string, param2: native.Array<number>, param3: number): void;
-				public getSelectedBody2(): com.couchbase.litecore.fleece.FLDict;
-				public getDocID(): string;
-				public save(param0: number): void;
-				public selectNextLeafRevision(param0: boolean, param1: boolean): void;
-				public deleted(): boolean;
-				public isSelectedRevFlags(param0: number): boolean;
-				public getFlags(): number;
-				public getRevID(): string;
-				public getSelectedBody(): native.Array<number>;
-				public selectFirstPossibleAncestorOf(param0: string): boolean;
-				public static dictContainsBlobs(param0: com.couchbase.litecore.fleece.FLSliceResult, param1: com.couchbase.litecore.fleece.FLSharedKeys): boolean;
-				public getSelectedSequence(): number;
-				public update(param0: native.Array<number>, param1: number): com.couchbase.litecore.C4Document;
-				public loadRevisionBody(): void;
-				public selectCommonAncestorRevision(param0: string, param1: string): boolean;
-				public purgeRevision(param0: string): number;
-				public conflicted(): boolean;
-				public update(param0: com.couchbase.litecore.fleece.FLSliceResult, param1: number): com.couchbase.litecore.C4Document;
-				public exists(): boolean;
-				public selectNextRevision(): boolean;
-				public getSelectedRevID(): string;
-				public selectNextPossibleAncestorOf(param0: string): boolean;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4DocumentObserver {
-				public static class: java.lang.Class<com.couchbase.litecore.C4DocumentObserver>;
-				public finalize(): void;
-				public free(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4DocumentObserverListener {
-				public static class: java.lang.Class<com.couchbase.litecore.C4DocumentObserverListener>;
-				/**
-				 * Constructs a new instance of the com.couchbase.litecore.C4DocumentObserverListener interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-					callback(param0: com.couchbase.litecore.C4DocumentObserver, param1: string, param2: number, param3: any): void;
-				});
-				public constructor();
-				public callback(param0: com.couchbase.litecore.C4DocumentObserver, param1: string, param2: number, param3: any): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Error {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Error>;
-				public constructor(param0: number, param1: number, param2: number);
-				public getCode(): number;
-				public getInternalInfo(): number;
-				public toString(): string;
-				public getDomain(): number;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4FullTextMatch {
-				public static class: java.lang.Class<com.couchbase.litecore.C4FullTextMatch>;
-				public property(): number;
-				public length(): number;
-				public toList(): java.util.List<java.lang.Long>;
-				public start(): number;
-				public finalize(): void;
-				public dataSource(): number;
-				public term(): number;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Key {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Key>;
-				public static pbkdf2(param0: string, param1: native.Array<number>, param2: number, param3: number): native.Array<number>;
-				public constructor();
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Listener {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Listener>;
-				public constructor(param0: com.couchbase.litecore.C4ListenerConfig);
-				public static getAvailableAPIs(): number;
-				public finalize(): void;
-				public static getURINameFromPath(param0: string): string;
-				public shareDB(param0: string, param1: com.couchbase.litecore.C4Database): boolean;
-				public unshareDB(param0: string): boolean;
-				public free(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4ListenerAPIs {
-				public static class: java.lang.Class<com.couchbase.litecore.C4ListenerAPIs>;
-				/**
-				 * Constructs a new instance of the com.couchbase.litecore.C4ListenerAPIs interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-				});
-				public constructor();
-				public static kC4RESTAPI: number;
-				public static kC4SyncAPI: number;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4ListenerConfig {
-				public static class: java.lang.Class<com.couchbase.litecore.C4ListenerConfig>;
-				public constructor(param0: number, param1: number, param2: string, param3: boolean, param4: boolean, param5: boolean, param6: boolean);
-				public setDirectory(param0: string): void;
-				public isAllowPush(): boolean;
-				public setPort(param0: number): void;
-				public setAllowCreateDBs(param0: boolean): void;
-				public getPort(): number;
-				public setApis(param0: number): void;
-				public setAllowDeleteDBs(param0: boolean): void;
-				public toString(): string;
-				public constructor();
-				public setAllowPush(param0: boolean): void;
-				public setAllowPull(param0: boolean): void;
-				public getApis(): number;
-				public isAllowDeleteDBs(): boolean;
-				public isAllowCreateDBs(): boolean;
-				public getDirectory(): string;
-				public isAllowPull(): boolean;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Log {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Log>;
-				public static setLevel(param0: string, param1: number): void;
-				public constructor();
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Query {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Query>;
-				public run(param0: com.couchbase.litecore.C4QueryOptions, param1: string): com.couchbase.litecore.C4QueryEnumerator;
-				public finalize(): void;
-				public getFullTextMatched(param0: com.couchbase.litecore.C4FullTextMatch): native.Array<number>;
-				public columnCount(): number;
-				public free(): void;
-				public explain(): string;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4QueryEnumerator {
-				public static class: java.lang.Class<com.couchbase.litecore.C4QueryEnumerator>;
-				public next(): boolean;
-				public close(): void;
-				public getMissingColumns(): number;
-				public refresh(): com.couchbase.litecore.C4QueryEnumerator;
-				public getRowCount(): number;
-				public getColumns(): com.couchbase.litecore.fleece.FLArrayIterator;
-				public getFullTextMatchCount(): number;
-				public getFullTextMatchs(param0: number): com.couchbase.litecore.C4FullTextMatch;
-				public finalize(): void;
-				public seek(param0: number): boolean;
-				public free(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4QueryOptions {
-				public static class: java.lang.Class<com.couchbase.litecore.C4QueryOptions>;
-				public isRankFullText(): boolean;
-				public setRankFullText(param0: boolean): void;
-				public constructor();
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4RawDocument {
-				public static class: java.lang.Class<com.couchbase.litecore.C4RawDocument>;
-				public body(): string;
-				public finalize(): void;
-				public meta(): string;
-				public free(): void;
-				public key(): string;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4Replicator {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Replicator>;
-				public static kC4Replicator2Scheme: string;
-				public static kC4Replicator2TLSScheme: string;
-				public stop(): void;
-				public getStatus(): com.couchbase.litecore.C4ReplicatorStatus;
-				public static mayBeNetworkDependent(param0: com.couchbase.litecore.C4Error): boolean;
-				public finalize(): void;
-				public getResponseHeaders(): native.Array<number>;
-				public static mayBeTransient(param0: com.couchbase.litecore.C4Error): boolean;
-				public free(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4ReplicatorListener {
-				public static class: java.lang.Class<com.couchbase.litecore.C4ReplicatorListener>;
-				/**
-				 * Constructs a new instance of the com.couchbase.litecore.C4ReplicatorListener interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-					statusChanged(param0: com.couchbase.litecore.C4Replicator, param1: com.couchbase.litecore.C4ReplicatorStatus, param2: any): void;
-					documentError(param0: com.couchbase.litecore.C4Replicator, param1: boolean, param2: string, param3: com.couchbase.litecore.C4Error, param4: boolean, param5: any): void;
-				});
-				public constructor();
-				public statusChanged(param0: com.couchbase.litecore.C4Replicator, param1: com.couchbase.litecore.C4ReplicatorStatus, param2: any): void;
-				public documentError(param0: com.couchbase.litecore.C4Replicator, param1: boolean, param2: string, param3: com.couchbase.litecore.C4Error, param4: boolean, param5: any): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4ReplicatorMode {
-				public static class: java.lang.Class<com.couchbase.litecore.C4ReplicatorMode>;
-				/**
-				 * Constructs a new instance of the com.couchbase.litecore.C4ReplicatorMode interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-				});
-				public constructor();
-				public static kC4Continuous: number;
-				public static kC4Disabled: number;
-				public static kC4Passive: number;
-				public static kC4OneShot: number;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4ReplicatorStatus {
-				public static class: java.lang.Class<com.couchbase.litecore.C4ReplicatorStatus>;
-				public getActivityLevel(): number;
-				public getErrorDomain(): number;
-				public getC4Error(): com.couchbase.litecore.C4Error;
-				public constructor(param0: number, param1: number, param2: number);
-				public getErrorInternalInfo(): number;
-				public constructor(param0: number, param1: number, param2: number, param3: number, param4: number, param5: number, param6: number);
-				public setActivityLevel(param0: number): void;
-				public getErrorCode(): number;
-				public toString(): string;
-				public copy(): com.couchbase.litecore.C4ReplicatorStatus;
-				public getProgressUnitsTotal(): number;
-				public constructor();
-				public getProgressUnitsCompleted(): number;
-				public constructor(param0: number);
-				public getProgressDocumentCount(): number;
-			}
-			export module C4ReplicatorStatus {
-				export class C4ReplicatorActivityLevel {
-					public static class: java.lang.Class<com.couchbase.litecore.C4ReplicatorStatus.C4ReplicatorActivityLevel>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.C4ReplicatorStatus$C4ReplicatorActivityLevel interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-					});
-					public constructor();
-					public static kC4Busy: number;
-					public static kC4Connecting: number;
-					public static kC4Idle: number;
-					public static kC4Stopped: number;
-					public static kC4Offline: number;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export abstract class C4Socket {
-				public static class: java.lang.Class<com.couchbase.litecore.C4Socket>;
-				public static WEBSOCKET_SCHEME: string;
-				public static WEBSOCKET_SECURE_CONNECTION_SCHEME: string;
-				public static kC4ReplicatorOptionExtraHeaders: string;
-				public static kC4ReplicatorOptionCookies: string;
-				public static kC4ReplicatorOptionAuthentication: string;
-				public static kC4ReplicatorOptionPinnedServerCert: string;
-				public static kC4ReplicatorOptionDocIDs: string;
-				public static kC4ReplicatorOptionChannels: string;
-				public static kC4ReplicatorOptionFilter: string;
-				public static kC4ReplicatorOptionFilterParams: string;
-				public static kC4ReplicatorOptionSkipDeleted: string;
-				public static kC4ReplicatorOptionNoIncomingConflicts: string;
-				public static kC4ReplicatorOptionOutgoingConflicts: string;
-				public static kC4ReplicatorCheckpointInterval: string;
-				public static kC4ReplicatorOptionRemoteDBUniqueID: string;
-				public static kC4ReplicatorHeartbeatInterval: string;
-				public static kC4ReplicatorResetCheckpoint: string;
-				public static kC4ReplicatorOptionNoConflicts: string;
-				public static kC4SocketOptionWSProtocols: string;
-				public static kC4ReplicatorAuthType: string;
-				public static kC4ReplicatorAuthUserName: string;
-				public static kC4ReplicatorAuthPassword: string;
-				public static kC4ReplicatorAuthClientCert: string;
-				public static kC4AuthTypeBasic: string;
-				public static kC4AuthTypeSession: string;
-				public static kC4AuthTypeOpenIDConnect: string;
-				public static kC4AuthTypeFacebook: string;
-				public static kC4AuthTypeClientCert: string;
-				public static kC4WebSocketClientFraming: number;
-				public static kC4NoFraming: number;
-				public static kC4WebSocketServerFraming: number;
-				public static reverseLookupTable: java.util.Map<java.lang.Long,com.couchbase.litecore.C4Socket>;
-				public static socketFactory: java.util.Map<java.lang.Integer,java.lang.Class>;
-				public static socketFactoryContext: java.util.Map<java.lang.Integer,com.couchbase.lite.Replicator>;
-				public handle: number;
-				public nativeHandle: any;
-				public close(): void;
-				public gotHTTPResponse(param0: number, param1: native.Array<number>): void;
-				public static opened(param0: number): void;
-				public completedWrite(param0: number): void;
-				public constructor();
-				public static completedWrite(param0: number, param1: number): void;
-				public static fromNative(param0: number, param1: string, param2: string, param3: number, param4: string, param5: number): number;
-				public completedReceive(param0: number): void;
-				public static registerFactory(): void;
-				public static closed(param0: number, param1: number, param2: number, param3: string): void;
-				public send(param0: native.Array<number>): void;
-				public constructor(param0: number);
-				public static gotHTTPResponse(param0: number, param1: number, param2: native.Array<number>): void;
-				public static closeRequested(param0: number, param1: number, param2: string): void;
-				public requestClose(param0: number, param1: string): void;
-				public static received(param0: number, param1: native.Array<number>): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class C4WebSocketCloseCode {
-				public static class: java.lang.Class<com.couchbase.litecore.C4WebSocketCloseCode>;
-				/**
-				 * Constructs a new instance of the com.couchbase.litecore.C4WebSocketCloseCode interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-				 */
-				public constructor(implementation: {
-				});
-				public constructor();
-				public static kWebSocketCloseBadMessageFormat: number;
-				public static kWebSocketCloseUserPermanent: number;
-				public static kWebSocketCloseNoCode: number;
-				public static kWebSocketCloseAbnormal: number;
-				public static kWebSocketCloseMissingExtension: number;
-				public static kWebSocketCloseTLSFailure: number;
-				public static kWebSocketCloseGoingAway: number;
-				public static kWebSocketCloseNormal: number;
-				public static kWebSocketClosePolicyError: number;
-				public static kWebSocketCloseFirstAvailable: number;
-				public static kWebSocketCloseCantFulfill: number;
-				public static kWebSocketCloseProtocolError: number;
-				public static kWebSocketCloseUserTransient: number;
-				public static kWebSocketCloseDataError: number;
-				public static kWebSocketCloseMessageTooBig: number;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class LiteCoreException {
-				public static class: java.lang.Class<com.couchbase.litecore.LiteCoreException>;
-				public domain: number;
-				public code: number;
-				public constructor(param0: number, param1: number, param2: string);
-				public getCode(): number;
-				public static throwException(param0: number, param1: number, param2: string): void;
-				public toString(): string;
-				public getDomain(): number;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export abstract class RefCounted {
-				public static class: java.lang.Class<com.couchbase.litecore.RefCounted>;
-				public release(): void;
-				public retain(): void;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export class SharedKeys {
-				public static class: java.lang.Class<com.couchbase.litecore.SharedKeys>;
-				public constructor(param0: com.couchbase.litecore.C4Database);
-				public getFLSharedKeys(): com.couchbase.litecore.fleece.FLSharedKeys;
-				public static valueToObject(param0: com.couchbase.litecore.fleece.FLValue, param1: com.couchbase.litecore.SharedKeys): any;
-				public static getKey(param0: com.couchbase.litecore.fleece.FLDictIterator, param1: com.couchbase.litecore.SharedKeys): string;
-				public constructor(param0: com.couchbase.litecore.fleece.FLSharedKeys);
-				public static dictContainsBlobs(param0: com.couchbase.litecore.fleece.FLSliceResult, param1: com.couchbase.litecore.SharedKeys): boolean;
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class AllocSlice {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.AllocSlice>;
-					public free(): void;
-					public constructor(param0: native.Array<number>);
-					public getBuf(): native.Array<number>;
-					public finalize(): void;
-					public getSize(): number;
-					public constructor(param0: number, param1: boolean);
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class Encodable {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.Encodable>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.fleece.Encodable interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-						encodeTo(param0: com.couchbase.litecore.fleece.Encoder): void;
-					});
-					public constructor();
-					public encodeTo(param0: com.couchbase.litecore.fleece.Encoder): void;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class Encoder {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.Encoder>;
-					public free(): void;
-					public writeKey(param0: string): boolean;
-					public writeNull(): boolean;
-					public writeObject(param0: any): boolean;
-					public constructor(param0: com.couchbase.litecore.fleece.FLEncoder);
-					public finalize(): void;
-					public endDict(): boolean;
-					public endArray(): boolean;
-					public writeValue(param0: com.couchbase.litecore.fleece.FLValue): boolean;
-					public release(): void;
-					public write(param0: java.util.List): boolean;
-					public beginDict(param0: number): boolean;
-					public beginArray(param0: number): boolean;
-					public writeValue(param0: com.couchbase.litecore.fleece.FLArray): boolean;
-					public constructor();
-					public finish(): com.couchbase.litecore.fleece.AllocSlice;
-					public getFLEncoder(): com.couchbase.litecore.fleece.FLEncoder;
-					public write(param0: java.util.Map): boolean;
-					public writeValue(param0: com.couchbase.litecore.fleece.FLDict): boolean;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLArray {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLArray>;
-					public asArray(): java.util.List<any>;
-					public count(): number;
-					public get(param0: number): com.couchbase.litecore.fleece.FLValue;
-					public constructor(param0: number);
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLArrayIterator {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLArrayIterator>;
-					public free(): void;
-					public getValue(): com.couchbase.litecore.fleece.FLValue;
-					public begin(param0: com.couchbase.litecore.fleece.FLArray): void;
-					public next(): boolean;
-					public constructor();
-					public finalize(): void;
-					public getValueAt(param0: number): com.couchbase.litecore.fleece.FLValue;
-					public constructor(param0: number);
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLConstants {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLConstants>;
-					public constructor();
-				}
-				export module FLConstants {
-					export class FLError {
-						public static class: java.lang.Class<com.couchbase.litecore.fleece.FLConstants.FLError>;
+				export module Fn {
+					export class Consumer<T>  extends java.lang.Object {
+						public static class: java.lang.Class<com.couchbase.lite.utils.Fn.Consumer<any>>;
 						/**
-						 * Constructs a new instance of the com.couchbase.litecore.fleece.FLConstants$FLError interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 * Constructs a new instance of the com.couchbase.lite.utils.Fn$Consumer interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 						 */
 						public constructor(implementation: {
+							accept(param0: T): void;
 						});
 						public constructor();
-						public static InternalError: number;
-						public static MemoryError: number;
-						public static OutOfRange: number;
-						public static NotFound: number;
-						public static JSONError: number;
-						public static InvalidData: number;
-						public static EncodeError: number;
-						public static NoError: number;
-						public static UnknownValue: number;
+						public accept(param0: T): void;
 					}
-					export class FLValueType {
-						public static class: java.lang.Class<com.couchbase.litecore.fleece.FLConstants.FLValueType>;
+					export class Function<T, R>  extends java.lang.Object {
+						public static class: java.lang.Class<com.couchbase.lite.utils.Fn.Function<any,any>>;
 						/**
-						 * Constructs a new instance of the com.couchbase.litecore.fleece.FLConstants$FLValueType interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 * Constructs a new instance of the com.couchbase.lite.utils.Fn$Function interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 						 */
 						public constructor(implementation: {
+							apply(param0: T): R;
 						});
 						public constructor();
-						public static kFLNull: number;
-						public static kFLDict: number;
-						public static kFLNumber: number;
-						public static kFLArray: number;
-						public static kFLBoolean: number;
-						public static kFLString: number;
-						public static kFLUndefined: number;
-						public static kFLData: number;
+						public apply(param0: T): R;
 					}
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLDict {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLDict>;
-					public static getKeyString(param0: com.couchbase.litecore.fleece.FLSharedKeys, param1: number): string;
-					public asDict(): java.util.Map<string,any>;
-					public toObject(param0: com.couchbase.litecore.SharedKeys): java.util.Map<string,any>;
-					public count(): number;
-					public getSharedKey(param0: string, param1: com.couchbase.litecore.fleece.FLSharedKeys): com.couchbase.litecore.fleece.FLValue;
-					public constructor(param0: number);
-					public toFLValue(): com.couchbase.litecore.fleece.FLValue;
-					public getHandle(): number;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLDictIterator {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLDictIterator>;
-					public free(): void;
-					public getValue(): com.couchbase.litecore.fleece.FLValue;
-					public next(): boolean;
-					public constructor();
-					public begin(param0: com.couchbase.litecore.fleece.FLDict): void;
-					public finalize(): void;
-					public getKey(): com.couchbase.litecore.fleece.FLValue;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLEncodable {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLEncodable>;
-					/**
-					 * Constructs a new instance of the com.couchbase.litecore.fleece.FLEncodable interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
-					 */
-					public constructor(implementation: {
-						encodeTo(param0: com.couchbase.litecore.fleece.FLEncoder): void;
-					});
-					public constructor();
-					public encodeTo(param0: com.couchbase.litecore.fleece.FLEncoder): void;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLEncoder {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLEncoder>;
-					public free(): void;
-					public writeData(param0: native.Array<number>): boolean;
-					public finish(): native.Array<number>;
-					public finish2(): com.couchbase.litecore.fleece.FLSliceResult;
-					public writeKey(param0: string): boolean;
-					public finalize(): void;
-					public writeString(param0: string): boolean;
-					public endDict(): boolean;
-					public endArray(): boolean;
-					public writeValue(param0: any): boolean;
-					public constructor(param0: number, param1: boolean);
-					public setExtraInfo(param0: any): void;
-					public getExtraInfo(): any;
-					public write(param0: java.util.List): boolean;
-					public beginDict(param0: number): boolean;
-					public beginArray(param0: number): boolean;
-					public constructor();
-					public write(param0: java.util.Map): boolean;
-					public constructor(param0: number);
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLSharedKeys {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLSharedKeys>;
-					public constructor(param0: number);
-					public getHandle(): number;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLSliceResult {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLSliceResult>;
-					public free(): void;
-					public getBuf(): native.Array<number>;
-					public finalize(): void;
-					public getSize(): number;
-					public constructor(param0: number);
-					public getHandle(): number;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class FLValue {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.FLValue>;
-					public getType(): number;
-					public asArray(): java.util.List<any>;
-					public asData(): native.Array<number>;
-					public asFLArray(): com.couchbase.litecore.fleece.FLArray;
-					public asString(): string;
-					public asDouble(): number;
-					public asDict(): java.util.Map<string,any>;
-					public toObject(param0: com.couchbase.litecore.SharedKeys): any;
-					public toJSON(): string;
-					public toStr(): string;
-					public static json5ToJson(param0: string): string;
-					public isUnsigned(): boolean;
-					public constructor(param0: number);
-					public isDouble(): boolean;
-					public asFLDict(): com.couchbase.litecore.fleece.FLDict;
-					public asBool(): boolean;
-					public asUnsigned(): number;
-					public static fromData(param0: com.couchbase.litecore.fleece.AllocSlice): com.couchbase.litecore.fleece.FLValue;
-					public isNumber(): boolean;
-					public static fromData(param0: native.Array<number>): com.couchbase.litecore.fleece.FLValue;
-					public asInt(): number;
-					public static toObject(param0: com.couchbase.litecore.fleece.FLValue): any;
-					public isInteger(): boolean;
-					public asFloat(): number;
-					public toJSON5(): string;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class MArray extends com.couchbase.litecore.fleece.MCollection {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.MArray>;
-					public remove(param0: number, param1: number): boolean;
-					public clear(): boolean;
-					public initInSlot(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection): void;
-					public count(): number;
-					public initAsCopyOf(param0: com.couchbase.litecore.fleece.MCollection, param1: boolean): void;
-					public append(param0: any): boolean;
-					public remove(param0: number): boolean;
-					public initAsCopyOf(param0: com.couchbase.litecore.fleece.MArray, param1: boolean): void;
-					public get(param0: number): com.couchbase.litecore.fleece.MValue;
-					public set(param0: number, param1: any): boolean;
-					public constructor();
-					public getBaseArray(): com.couchbase.litecore.fleece.FLArray;
-					public initInSlot(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection, param2: boolean): void;
-					public insert(param0: number, param1: any): boolean;
-					public encodeTo(param0: com.couchbase.litecore.fleece.Encoder): void;
-					public constructor(param0: com.couchbase.litecore.fleece.MContext, param1: boolean);
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export abstract class MCollection extends com.couchbase.litecore.fleece.Encodable {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.MCollection>;
-					public getMutableChildren(): boolean;
-					public constructor();
-					public mutate(): void;
-					public setSlot(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MValue): void;
-					public initAsCopyOf(param0: com.couchbase.litecore.fleece.MCollection, param1: boolean): void;
-					public initInSlot(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection, param2: boolean): void;
-					public getContext(): com.couchbase.litecore.fleece.MContext;
-					public isMutable(): boolean;
-					public encodeTo(param0: com.couchbase.litecore.fleece.Encoder): void;
-					public isMutated(): boolean;
-					public constructor(param0: com.couchbase.litecore.fleece.MContext, param1: boolean);
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class MContext {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.MContext>;
-					public static NULL: com.couchbase.litecore.fleece.MContext;
-					public getData(): com.couchbase.litecore.fleece.AllocSlice;
-					public constructor();
-					public constructor(param0: com.couchbase.litecore.fleece.AllocSlice, param1: com.couchbase.litecore.fleece.FLSharedKeys);
-					public getSharedKeys(): com.couchbase.litecore.fleece.FLSharedKeys;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class MDict extends com.couchbase.litecore.fleece.MCollection implements java.lang.Iterable<string>  {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.MDict>;
-					public get(param0: string): com.couchbase.litecore.fleece.MValue;
-					public initAsCopyOf(param0: com.couchbase.litecore.fleece.MDict, param1: boolean): void;
-					public set(param0: string, param1: com.couchbase.litecore.fleece.MValue): boolean;
-					public clear(): boolean;
-					public initInSlot(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection): void;
-					public count(): number;
-					public initAsCopyOf(param0: com.couchbase.litecore.fleece.MCollection, param1: boolean): void;
-					public iterator(): java.util.Iterator<string>;
-					public constructor();
-					public initInSlot(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection, param2: boolean): void;
-					public getKeys(): java.util.List<string>;
-					public getSharedKeys(): com.couchbase.litecore.fleece.FLSharedKeys;
-					public contains(param0: string): boolean;
-					public remove(param0: string): boolean;
-					public encodeTo(param0: com.couchbase.litecore.fleece.Encoder): void;
-					public constructor(param0: com.couchbase.litecore.fleece.MContext, param1: boolean);
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class MRoot extends com.couchbase.litecore.fleece.MCollection {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.MRoot>;
-					public constructor(param0: com.couchbase.litecore.fleece.MContext, param1: com.couchbase.litecore.fleece.FLValue, param2: boolean);
-					public constructor();
-					public constructor(param0: com.couchbase.litecore.fleece.AllocSlice);
-					public constructor(param0: com.couchbase.litecore.fleece.AllocSlice, param1: com.couchbase.litecore.fleece.FLSharedKeys, param2: boolean);
-					public static asNative(param0: com.couchbase.litecore.fleece.AllocSlice, param1: com.couchbase.litecore.fleece.FLSharedKeys, param2: boolean): any;
-					public encode(): com.couchbase.litecore.fleece.AllocSlice;
-					public encodeTo(param0: com.couchbase.litecore.fleece.Encoder): void;
-					public isMutated(): boolean;
-					public constructor(param0: com.couchbase.litecore.fleece.MContext, param1: boolean);
-					public asNative(): any;
-				}
-			}
-		}
-	}
-}
-
-declare module com {
-	export module couchbase {
-		export module litecore {
-			export module fleece {
-				export class MValue extends com.couchbase.litecore.fleece.Encodable {
-					public static class: java.lang.Class<com.couchbase.litecore.fleece.MValue>;
-					public static EMPTY: com.couchbase.litecore.fleece.MValue;
-					public constructor(param0: com.couchbase.litecore.fleece.FLValue);
-					public static registerDelegate(param0: com.couchbase.litecore.fleece.MValue.Delegate): void;
-					public getValue(): com.couchbase.litecore.fleece.FLValue;
-					public constructor(param0: boolean);
-					public isEmpty(): boolean;
-					public asNative(param0: com.couchbase.litecore.fleece.MCollection): any;
-					public mutate(): void;
-					public finalize(): void;
-					public constructor(param0: any);
-					public encodeTo(param0: com.couchbase.litecore.fleece.Encoder): void;
-					public isMutated(): boolean;
-				}
-				export module MValue {
-					export class Delegate {
-						public static class: java.lang.Class<com.couchbase.litecore.fleece.MValue.Delegate>;
+					export class Predicate<T>  extends java.lang.Object {
+						public static class: java.lang.Class<com.couchbase.lite.utils.Fn.Predicate<any>>;
 						/**
-						 * Constructs a new instance of the com.couchbase.litecore.fleece.MValue$Delegate interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 * Constructs a new instance of the com.couchbase.lite.utils.Fn$Predicate interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
 						 */
 						public constructor(implementation: {
-							toNative(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection, param2: java.util.concurrent.atomic.AtomicBoolean): any;
-							collectionFromNative(param0: any): com.couchbase.litecore.fleece.MCollection;
-							encodeNative(param0: com.couchbase.litecore.fleece.Encoder, param1: any): void;
+							test(param0: T): boolean;
 						});
 						public constructor();
-						public toNative(param0: com.couchbase.litecore.fleece.MValue, param1: com.couchbase.litecore.fleece.MCollection, param2: java.util.concurrent.atomic.AtomicBoolean): any;
-						public encodeNative(param0: com.couchbase.litecore.fleece.Encoder, param1: any): void;
-						public collectionFromNative(param0: any): com.couchbase.litecore.fleece.MCollection;
+						public test(param0: T): boolean;
+					}
+					export class Provider<T>  extends java.lang.Object {
+						public static class: java.lang.Class<com.couchbase.lite.utils.Fn.Provider<any>>;
+						/**
+						 * Constructs a new instance of the com.couchbase.lite.utils.Fn$Provider interface with the provided implementation. An empty constructor exists calling super() when extending the interface class.
+						 */
+						public constructor(implementation: {
+							get(): T;
+						});
+						public constructor();
+						public get(): T;
 					}
 				}
 			}
@@ -4009,4 +4695,8 @@ declare module okhttp3 {
 //com.couchbase.lite.ChangeListener:1
 //com.couchbase.lite.ChangeListenerToken:1
 //com.couchbase.lite.ChangeNotifier:1
+//com.couchbase.lite.utils.Fn.Consumer:1
+//com.couchbase.lite.utils.Fn.Function:2
+//com.couchbase.lite.utils.Fn.Predicate:1
+//com.couchbase.lite.utils.Fn.Provider:1
 

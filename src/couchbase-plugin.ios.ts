@@ -712,7 +712,12 @@ export class Replicator extends ReplicatorBase {
     
     setChannels(channels: string[]) {
         const newConfig = CBLReplicatorConfiguration.alloc().initWithConfig(this.replicator.config);
-        newConfig.channels = NSArray.arrayWithArray(channels);
+
+        //TA: NOTE: Code line commented out below lines gives compile error:
+        //couchbase-plugin.ios.ts:715:53 - error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'NSArray<{}>'.
+        //   Property 'count' is missing in type 'string[]'.
+        //   715         newConfig.channels = NSArray.arrayWithArray(channels);
+        // newConfig.channels = NSArray.arrayWithArray(channels);
         this.replicator = CBLReplicator.alloc().initWithConfig(newConfig);
     }
 

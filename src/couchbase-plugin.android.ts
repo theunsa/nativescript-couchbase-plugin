@@ -29,9 +29,10 @@ export class Couchbase extends Common {
 
     constructor(name: string) {
         super(name);
-        this.config = new com.couchbase.lite.DatabaseConfiguration(
+        com.couchbase.lite.CouchbaseLite.init(
             utils.ad.getApplicationContext()
         );
+        this.config = new com.couchbase.lite.DatabaseConfiguration();
         this.android = new com.couchbase.lite.Database(name, this.config);
     }
 
@@ -682,19 +683,25 @@ export class Couchbase extends Common {
             this.android,
             uri
         );
-        if (direction === 'pull') {
-            repConfig.setReplicatorType(
-                com.couchbase.lite.ReplicatorConfiguration.ReplicatorType.PULL
-            );
-        } else if (direction === 'push') {
-            repConfig.setReplicatorType(
-                com.couchbase.lite.ReplicatorConfiguration.ReplicatorType.PUSH
-            );
-        } else {
-            repConfig.setReplicatorType(
-                com.couchbase.lite.ReplicatorConfiguration.ReplicatorType.PUSH_AND_PULL
-            );
-        }
+
+        //TA: NOTE: Keep getting compile errors not being able to resolve .PULL etc
+        // I'm not sure how to do this properly since moving to v2.6.0 of the library
+        // Commenting the below checks out which will take PUSH_PULL as default, which
+        // is exactly what I want
+
+        // if (direction === 'pull') {
+        //     repConfig.setReplicatorType(
+        //         com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType.PULL
+        //     );
+        // } else if (direction === 'push') {
+        //     repConfig.setReplicatorType(
+        //         com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType.PUSH
+        //     );
+        // } else {
+        //     repConfig.setReplicatorType(
+        //         com.couchbase.lite.AbstractReplicatorConfiguration.ReplicatorType.PUSH
+        //     );
+        // }
 
         const replicator = new com.couchbase.lite.Replicator(repConfig);
 
@@ -783,7 +790,7 @@ export class Replicator extends ReplicatorBase {
         this.replicator = new com.couchbase.lite.Replicator(newConfig);
     }
     
-    setChannel(channels: string[]) {
+    setChannels(channels: string[]) {
         const newConfig = new com.couchbase.lite.ReplicatorConfiguration(this.replicator.getConfig());
         newConfig.setChannels(channels);
         this.replicator = new com.couchbase.lite.Replicator(newConfig);
