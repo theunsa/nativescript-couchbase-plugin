@@ -404,7 +404,7 @@ export class Couchbase extends Common {
         }
     }
 
-    compact() {
+    compactDatabase() {
         try {
             this.android.compact();
         }
@@ -413,15 +413,6 @@ export class Couchbase extends Common {
         }
     }
     
-    close() {
-        try {
-            this.android.close();
-        }
-        catch (e) {
-            console.error(e.message);
-        }
-    }
-
     private serializeExpression(item) {
         if (item === null) {
             return null;
