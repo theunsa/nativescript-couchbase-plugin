@@ -388,6 +388,14 @@ export class Couchbase extends Common {
         }
     }
 
+    closeDatabase() {
+        try {
+            this.android.close();
+        } catch (e) {
+            console.error(e.message);
+        }
+    }
+
     destroyDatabase() {
         try {
             this.android.delete();
