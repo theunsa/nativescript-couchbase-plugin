@@ -396,6 +396,24 @@ export class Couchbase extends Common {
         }
     }
 
+    compact() {
+        try {
+            this.android.compact();
+        }
+        catch (e) {
+            console.error(e.message);
+        }
+    }
+    
+    close() {
+        try {
+            this.android.close();
+        }
+        catch (e) {
+            console.error(e.message);
+        }
+    }
+
     private serializeExpression(item) {
         if (item === null) {
             return null;
